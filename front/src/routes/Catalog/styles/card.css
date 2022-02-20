@@ -1,0 +1,38 @@
+.catalog__card {
+  max-width: 300px;
+  min-height: 300px;
+  width: 100%;
+  border: 1px solid #d4d3d3;
+  cursor: pointer;
+  transition: box-shadow ease .2s;
+}
+
+.catalog__card a{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.catalog__card:hover {
+  box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.3);
+}
+
+.catalog__card-title {
+  font-size: 18px;
+  line-height: 28px;
+  text-align: center;
+}
+
+.catalog__card-image {
+  width: 150px;
+  height: 150px;
+  margin: 0 auto;
+  margin-bottom: 8px;
+}
+.catalog__card-image img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

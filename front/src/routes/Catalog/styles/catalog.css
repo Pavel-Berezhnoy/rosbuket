@@ -1,0 +1,11 @@
+.catalog__cards,.bouquets_cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 48px;
+  padding: 0 8px;
+}
+.bouquets_cards {
+  justify-content: start;
+}

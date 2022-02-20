@@ -1,0 +1,29 @@
+input[type=text],input[type=password],input[type=email] {
+    border: 2px solid #FBDEDE;
+    padding: 8px;
+    border-radius: 8px;
+    font-size: 16px;
+    margin-bottom: 24px;
+}
+input:focus {
+    box-shadow: inset 0 0 4px 0 rgba(0, 0, 0,0.2);
+}
+input[type=button],input[type=submit] {
+    color: #777;
+    padding: 8px;
+    font-weight: bold;
+    background: #FBDEDE;
+    font-size: 16px;
+    cursor: pointer;
+    transition: .2s;
+    margin-bottom: 24px;
+}
+input[type=checkbox] {
+    cursor: pointer;
+    margin-right: 8px;
+    margin-bottom: 24px;
+}
+
+input[type=button]:hover {
+    background-color: #f8c1df;
+}

@@ -1,0 +1,52 @@
+.catalog__bouquet-card-content {
+  position: relative;
+}
+.catalog__bouquet-card {
+  max-width: 320px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: inset 0px 0px 0px 1px #ececec;
+  padding: 6px;
+  transition: box-shadow .3s;
+}
+
+.catalog__bouquet-card:hover {
+  box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.3);
+}
+
+.catalog__bouquet-card-image {
+  width: 300px;
+  height: 300px;
+}
+.catalog__bouquet-card-image img {
+  object-fit: cover;
+  width: 300px;
+  height: 300px;
+}
+.catalog__bouquet-card-price,.catalog__bouquet-card-title {
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: bold;
+  color: #000;
+}
+.catalog__bouquet-card-title {
+  margin-bottom: 12px;
+}
+.catalog__bouquet-card-price {
+  font-size: 18px;
+}
+.catalog__bouquet-card-description {
+  padding: 4px 8px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 300px;
+  background-color: #ffffff;
+  transition: .3s;
+}
+
+.catalog__bouquet-card-description p {
+  flex: 1;
+}
