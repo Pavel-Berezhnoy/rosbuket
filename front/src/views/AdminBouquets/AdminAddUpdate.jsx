@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import InsertUpdateForm from "../../components/admin/form/InsertUpdateForm";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import { api } from "../../api/api.get";
@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import config from "../../config/main";
 import SuccessMessage from "../../components/messages/SuccessMessage";
 import useMessage from "../../hooks/useMessage";
+import { OpenModal } from "../../components/messages/SuccessMessage";
 
 const AdminAddUpdateBouquet = () => {
     const { id } = useParams();
@@ -22,7 +23,7 @@ const AdminAddUpdateBouquet = () => {
     const [image, setImage] = useState();
     const [changeFile, setChangeFile] = useState();
     const multiFilter = useMultiFilter();
-    const message = useMessage();
+    const message = useContext(OpenModal);
     useEffect(() => {
         if (id) {
             (async () => {
@@ -60,17 +61,18 @@ const AdminAddUpdateBouquet = () => {
         if (id) {
             form.append('id', id);
             await api.post("/api/admin/bouquets?_method=PUT", form);
-            message.setOpened(true);
-            message.setText("Товар успешно обновлен!");
+            message.setOpenedState({
+                open: true,
+                text: 'Товар успешно обновлен!',
+            });
         } else {
             await api.post("/api/admin/bouquets", form);
-            message.setOpened(true);
+            message.setOpenedState(true);
             message.setText("Товар успешно добавлен!");
         }
     }
     return (
         <>
-            <SuccessMessage opened={message.opened} text={message.text}></SuccessMessage>
             <InsertUpdateForm titleAdd="Добавить товар" titleUpdate="Обновить товар" submitHandle={submitHandle}>
                 <div className="md:flex items-center mt-8">
                     <div className="w-full flex flex-col">

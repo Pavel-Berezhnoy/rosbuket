@@ -1,6 +1,6 @@
 import React from "react";
 import "./style/style.css"
-import image from "../../images/assortiment-cvetochnogo-magazina.jpg";
+import image from "../../assets/images/assortiment-cvetochnogo-magazina.jpg";
 
 function About() {
     return(

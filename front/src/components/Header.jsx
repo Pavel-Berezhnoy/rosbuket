@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import config from '../config/main';
-import cartIcon from './../icons/shop-icon.png';
+import cartIcon from './../assets/icons/shop-icon.png';
 
 function Header() {
     const [mobileOpened, setMobileOpened] = useState(false);

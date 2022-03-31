@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import image from "../../images/assortiment-cvetochnogo-magazina.jpg";
+import image from "../../assets/images/assortiment-cvetochnogo-magazina.jpg";
 
 const AboutBlock = () => {
 

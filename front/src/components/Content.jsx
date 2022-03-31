@@ -1,16 +1,16 @@
 import React from 'react';
 import { Switch, Route, useLocation, Redirect } from 'react-router';
 import SlideRoutes from 'react-slide-routes';
-import Main from './../routes/Main/Main';
-import Contact from '../routes/Contact/Contact';
-import About from '../routes/About/About';
-import Catalog from '../routes/Catalog/Catalog';
-import Delivery from '../routes/Delivery/Delivery';
-import Cart from '../routes/Cart/Cart';
-import Ask from '../routes/Ask/Ask';
+import Main from './../views/Main/Main';
+import Contact from '../views/Contact/Contact';
+import About from '../views/About/About';
+import Catalog from '../views/Catalog/Catalog';
+import Delivery from '../views/Delivery/Delivery';
+import Cart from '../views/Cart/Cart';
+import Ask from '../views/Ask/Ask';
 import { useSelector } from 'react-redux';
-import Login from './../routes/Auth/Login';
-import Detail from '../routes/BouquetDetail/Detail';
+import Login from './../views/Auth/Login';
+import Detail from '../views/BouquetDetail/Detail';
 
 function Content(props) {
     const location = useLocation();
