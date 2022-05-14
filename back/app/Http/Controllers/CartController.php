@@ -4,32 +4,28 @@ namespace App\Http\Controllers;
 
 use App\Models\Bouquet;
 use Illuminate\Http\Request;
-use App\Services\CartService\CartItem;
+use App\DTO\CartItemDTO\CartItemDto;
 use App\Models\Order;
 use App\Models\OrderItem;
-
+use App\Services\CartService\CartService;
 
 class CartController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request, CartService $cartService)
     {
-        return CartItem::whereIn('id',explode(",",$request['items']))->get()->keyBy("id")->toJson();
+        $cartItems = $request['items'];
+
+        $cart = $cartService->getCart($cartItems);
+
+        return $cart;
     }
 
-    public function create(Request $request) {
+    public function create(Request $request, CartService $cartService)
+    {
         $fields =  $request->all();
-        $order = new Order($fields);
-        $order->save();
-        $orderItems = array();
-        foreach($fields['order_items'] as $orderItem) {
-            $orderItems[] = [
-                'order_id' => $order->id,
-                'bouquet_id' => $orderItem['id'],
-                'qty' => $orderItem['qty'],
-                'count_price' => $orderItem['qty'] * $orderItem['price'],
-            ];
-        }
-        OrderItem::insert($orderItems);
+
+        $cartService->createOrder($fields);
+        
         return "Запись успешно добавлена";
     }
 }

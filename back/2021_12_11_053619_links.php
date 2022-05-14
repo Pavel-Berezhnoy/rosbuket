@@ -34,6 +34,10 @@ class Links extends Migration
      */
     public function down()
     {
-        
+        Schema::dropIfExists('category_bouquets');
+        Schema:: table('category_bouquets', function ($table) {
+            $table->dropForeign(['bouquet_id']);
+            $table->dropForeign(['category_id']);
+        });
     }
 }

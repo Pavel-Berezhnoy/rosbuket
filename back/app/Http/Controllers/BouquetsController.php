@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Bouquet;
-
-use function GuzzleHttp\Promise\all;
+use Illuminate\Http\Response;
 
 class BouquetsController extends Controller
 {
@@ -14,8 +12,17 @@ class BouquetsController extends Controller
         return null;
     }
 
-    public function view($bouquetId, Request $request)
+    public function view($bouquetId)
     {
-        return Bouquet::where('id', $bouquetId)->with('categories')->first()->toJson();
+        return $this->findOrFail($bouquetId);
+    }
+
+    public function findOrFail($id)
+    {
+        $bouquet = Bouquet::where('id', $id)->with('categories')->first();
+        if ($bouquet) 
+            return $bouquet->toJson();
+        else
+            return response()->json(['status' => 'error', 'message' => 'Товар не найден'],404);
     }
 }

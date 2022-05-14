@@ -6,8 +6,6 @@ import useMultiFilter from "../../hooks/useMultiFilter";
 import MultiFilter from "../../components/filters/MultiFilter";
 import { Link } from "react-router-dom";
 import config from "../../config/main";
-import SuccessMessage from "../../components/messages/SuccessMessage";
-import useMessage from "../../hooks/useMessage";
 import { OpenModal } from "../../components/messages/SuccessMessage";
 
 const AdminAddUpdateBouquet = () => {
@@ -67,8 +65,10 @@ const AdminAddUpdateBouquet = () => {
             });
         } else {
             await api.post("/api/admin/bouquets", form);
-            message.setOpenedState(true);
-            message.setText("Товар успешно добавлен!");
+            message.setOpenedState({
+                open: true,
+                text: 'Товар успешно добавлен!',
+            });
         }
     }
     return (

@@ -3,13 +3,14 @@ import { api } from '../../api/api.get';
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { responsive } from './responsive';
-import Card from '../../components/Card';
+import Card from './Card';
+import BouquetCardLoader from "../../components/loaders/BouquetCardLoader";
 
-export default function Popular(props) {
+export default function Popular() {
     const [popular, setPopular] = useState([]);
     useEffect(() => {
         (async () => {
-            const response = await api.get(`/api?popular=true`);
+            const response = await api.get(`/api/main?popular=true`);
             setPopular(response.data);
         })();
     }, []);
@@ -30,9 +31,11 @@ export default function Popular(props) {
                     dotListClass="custom-dot-list-style"
                 >
                     {
-                        popular.map((bouquet) => {
-                            return <Card key={bouquet.id} bouquet={bouquet} />;
-                        })
+                        popular.length
+                            ? popular.map((bouquet) => {
+                                return <Card key={bouquet.id} bouquet={bouquet} />;
+                            })
+                            : [1, 2, 3, 4].map(item => <BouquetCardLoader key={item} />)
                     }
                 </Carousel>
             </div>

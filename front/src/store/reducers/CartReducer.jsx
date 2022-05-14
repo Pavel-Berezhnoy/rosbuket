@@ -55,16 +55,11 @@ export default function cartReducer(state = initialState, action) {
     case CART_LOADING:
       return { ...state, isLoading: true }
     case CART_SUCCESS:
-      const arrayCartItems = [];
-      const cookiesCart = JSON.parse(Cookies.get('cart'));
-      for (let item in cookiesCart) {
-        arrayCartItems.push({ ...action.payload[cookiesCart[item].id], qty: cookiesCart[item].quantity });
-      }
-      return { ...state, isLoading: false, cart: arrayCartItems }
+      return { ...state, isLoading: false, cart: action.payload }
     case CART_ERROR:
       return { ...state, isLoading: false, errors: action.payload.error }
     case CART_UPDATE_ITEM:
-      return { ...state, cart: state.cart.map(item => item.id != action.payload.idItem ? item : { ...item, qty: action.payload.qtyItem }) }
+      return { ...state, cart: state.cart.map(item => item.id != action.payload.idItem ? item : { ...item, quantity: action.payload.qtyItem }) }
     case CART_DELETE_ITEM:
       return { ...state, cart: state.cart.filter(item => item.id != action.payload.idItem) }
     case CART_CLEAR:

@@ -1,5 +1,5 @@
 
-import { BOUQUETS_LOADING, BOUQUETS_SUCCESS, BOUQUETS_ERROR } from "../reducers/BouquetReducer";
+import { BOUQUET_LOADING, BOUQUET_SUCCESS, BOUQUET_ERROR } from "../reducers/BouquetReducer";
 import { api } from "../../api/api.get";
 
 const bouquetThunk = (pageAddress) => {
@@ -10,28 +10,27 @@ const bouquetThunk = (pageAddress) => {
       if (response.status === 200) {
         dispatch(bouquetSuccess(response.data));
       } else {
-        const result = response;
-        dispatch(bouquetFailure(result.message));
+        dispatch(bouquetFailure(response.message));
       }
     } catch (err) {
-      dispatch(bouquetFailure(err));
+      dispatch(bouquetFailure(err.response.data));
     }
   }
 }
 
 const bouquetSuccess = (bouquet) => ({
-  type: BOUQUETS_SUCCESS,
+  type: BOUQUET_SUCCESS,
   payload: bouquet
 });
 
 const bouquetLoading = () => ({
-  type: BOUQUETS_LOADING
+  type: BOUQUET_LOADING
 });
 
 const bouquetFailure = (error) => ({
-  type: BOUQUETS_ERROR,
+  type: BOUQUET_ERROR,
   payload: {
-    error: error
+    error
   }
 });
 

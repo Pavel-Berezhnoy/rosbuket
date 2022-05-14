@@ -4,11 +4,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: digitalocean.com/php
     volumes:
       - ./back:/var/www
-    ports:
-      - "9000:9000"
     working_dir: /var/www
     depends_on:
       - mysql-server
@@ -41,6 +38,7 @@ services:
     volumes:
       - ./nginx:/etc/nginx/conf.d/
       - ./front:/sites/rosbuket
+      - ./back:/var/www/
 volumes:
   mysqldata:
     driver: local

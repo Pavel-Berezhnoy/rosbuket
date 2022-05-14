@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from 'react-router-dom';
-import config from "./../config/main";
+import config from "../../config/main";
 
 function Card(props) {
     const bouquet = props.bouquet;

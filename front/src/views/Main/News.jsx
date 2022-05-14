@@ -7,7 +7,7 @@ const News = () => {
     const [news, setNews] = useState([]);
     useEffect(() => {
         (async () => {
-            const response = await api.get(`/api?new=true`);
+            const response = await api.get(`/api/main?new=true`);
             setNews(response.data);
         })();
     }, []);
@@ -15,7 +15,7 @@ const News = () => {
         <>
             <h2 className="popular__title">Новинки</h2>
             <div className="bouquets_cards mt-16">
-                {news.length > 0 ? news.map((newBouquet) => {
+                {news.length ? news.map((newBouquet) => {
                     return <BouquetCard
                         key={newBouquet.id}
                         price={newBouquet.price}

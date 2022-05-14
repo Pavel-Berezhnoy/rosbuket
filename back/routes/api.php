@@ -13,6 +13,7 @@ use App\Http\Controllers\MainController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\FlowerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,7 +27,7 @@ use App\Http\Controllers\AuthController;
 */
 
 
-Route::get('/', [MainController::class, 'index'])->middleware('cors');
+Route::get('/main', [MainController::class, 'index']);
 Route::get('/catalog', [CategoryController::class, 'index']);
 Route::get('/category/all', [CategoryController::class, 'all']);
 Route::get('/category/{id}', [CategoryController::class, 'view']);
@@ -34,6 +35,7 @@ Route::get('/bouquet/{id}', [BouquetsController::class, 'view']);
 Route::get('/cart', [CartController::class, 'index']);
 Route::post('/cart', [CartController::class, 'create']);
 Route::post('/question', [QuestionController::class, 'create']);
+Route::get('/admin/settings', [SettingsController::class, 'index']);
 
 Route::group([
     'middleware' => 'api',
@@ -50,32 +52,36 @@ Route::group([
     'middleware' => 'auth:api',
     'prefix' => 'admin'
 ], function ($router) {
-    Route::get('/main', [MainController::class, 'adminMain'])->middleware('cors');
+    Route::get('/main', [MainController::class, 'adminMain']);
 
-    Route::get('/bouquets', [AdminBouquetsController::class, 'view'])->middleware('cors');
-    Route::post('/bouquets', [AdminBouquetsController::class, 'create'])->middleware('cors');
-    Route::put('/bouquets', [AdminBouquetsController::class, 'update'])->middleware('cors');
-    Route::delete('/bouquets', [AdminBouquetsController::class, 'delete'])->middleware('cors');
+    Route::get('/bouquets', [AdminBouquetsController::class, 'view']);
+    Route::post('/bouquets', [AdminBouquetsController::class, 'create']);
+    Route::put('/bouquets', [AdminBouquetsController::class, 'update']);
+    Route::delete('/bouquets', [AdminBouquetsController::class, 'delete']);
 
-    Route::get('/categories', [AdminCategoriesController::class, 'index'])->middleware('cors');
-    Route::get('/category/{id}', [AdminCategoriesController::class, 'view'])->middleware('cors');
-    Route::post('/categories', [AdminCategoriesController::class, 'create'])->middleware('cors');
-    Route::put('/categories', [AdminCategoriesController::class, 'update'])->middleware('cors');
-    Route::delete('/categories', [AdminCategoriesController::class, 'delete'])->middleware('cors');
+    Route::get('/categories', [AdminCategoriesController::class, 'index']);
+    Route::get('/category/{id}', [AdminCategoriesController::class, 'view']);
+    Route::post('/categories', [AdminCategoriesController::class, 'create']);
+    Route::put('/categories', [AdminCategoriesController::class, 'update']);
+    Route::delete('/categories', [AdminCategoriesController::class, 'delete']);
 
-    Route::get('/orders', [AdminOrderController::class, 'index'])->middleware('cors');
-    Route::get('/order/{id}', [AdminOrderController::class, 'view'])->middleware('cors');
-    Route::put('/orders', [AdminOrderController::class, 'update'])->middleware('cors');
-    Route::put('/order/status', [AdminOrderController::class, 'checked'])->middleware('cors');
+    Route::get('/orders', [AdminOrderController::class, 'index']);
+    Route::get('/order/{id}', [AdminOrderController::class, 'view']);
+    Route::put('/orders', [AdminOrderController::class, 'update']);
+    Route::put('/order/status', [AdminOrderController::class, 'checked']);
 
-    Route::get('/questions', [QuestionController::class, 'index'])->middleware('cors');
-    Route::get('/question/{id}', [QuestionController::class, 'view'])->middleware('cors');
-    Route::put('/questions', [QuestionController::class, 'update'])->middleware('cors');
-    Route::put('/question/status', [QuestionController::class, 'checked'])->middleware('cors');
+    Route::get('/questions', [QuestionController::class, 'index']);
+    Route::get('/question/{id}', [QuestionController::class, 'view']);
+    Route::put('/questions', [QuestionController::class, 'update']);
+    Route::put('/question/status', [QuestionController::class, 'checked']);
 
-    Route::post('/settings', [SettingsController::class, 'create'])->middleware('cors');
-    Route::put('/settings', [SettingsController::class, 'update'])->middleware('cors');
-    Route::delete('/settings', [SettingsController::class, 'delete'])->middleware('cors');
+    Route::post('/settings', [SettingsController::class, 'create']);
+    Route::put('/settings', [SettingsController::class, 'update']);
+    Route::delete('/settings', [SettingsController::class, 'delete']);
+
+    Route::get('/glossary/{id}', [FlowerController::class, 'view']);
+    Route::get('/glossary', [FlowerController::class, 'adminFlowers']);
+    Route::post('/glossary', [FlowerController::class, 'create']);
+    Route::put('/glossary', [FlowerController::class, 'update']);
+    Route::delete('/glossary', [FlowerController::class, 'delete']);
 });
-
-Route::get('/admin/settings', [SettingsController::class, 'index'])->middleware('cors');

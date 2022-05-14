@@ -1,8 +1,7 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { api } from "../../api/api.get";
-import SuccessMessage from "../../components/messages/SuccessMessage";
-import useMessage from "../../hooks/useMessage";
+import { OpenModal } from "../../components/messages/SuccessMessage";
 import { cartClear } from "../../store/reducers/CartReducer";
 
 const OrderForm = () => {
@@ -13,21 +12,25 @@ const OrderForm = () => {
         address: "",
         message: ""
     });
-    const message = useMessage();
+    
+    const message = useContext(OpenModal);
     const dispatch = useDispatch();
     const cart = useSelector(state => state.cartReducer.cart) || [];
+
     const submitHandle = async (e) => {
         e.preventDefault();
         const submitData = { ...userData, order_items: cart };
         const response = await api.postJson("/api/cart", submitData);
         if (response.status === 200) {
-            message.setOpened(true);
+            message.setOpenedState({
+                open: true,
+                text: 'Заказ успешно создан!',
+            });
             dispatch(cartClear());
         }
     }
     return (
         <>
-            <SuccessMessage text={"Заказ успешно создан!"} opened={message.opened}></SuccessMessage>
             <div className="p-4 bg-gray-100">
                 <h1 className="ml-2 font-bold uppercase">Оформить заказ</h1>
             </div>

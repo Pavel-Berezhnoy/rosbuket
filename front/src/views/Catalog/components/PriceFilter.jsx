@@ -2,12 +2,12 @@ import React, { useRef } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import SingleFilter from "../../../components/filters/SingleFilter";
-import { SET_PRICE_FILTR } from "../../../store/reducers/MainReducer";
+import { bouquetsFilter } from "../../../store/reducers/MainReducer";
 
 const PriceFilter = () => {
   const dispatch = useDispatch();
   const handleFilter = (value) => {
-    dispatch({type: SET_PRICE_FILTR, payload: value});
+    dispatch(bouquetsFilter(value));
   }
   const priceFilter = useSelector(state => state.mainReducer.filters.price);
 

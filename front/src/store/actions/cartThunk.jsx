@@ -1,13 +1,12 @@
-import Cookies from "js-cookie";
 import { api } from "../../api/api.get";
 import { cartSuccess, cartLoading, cartFailure } from "../reducers/CartReducer";
 
-const cartThunk = () => {
+const cartThunk = (cart) => {
     return async (dispatch) => {
-        const items = Cookies.get('cart');
+        cart = await cart();
         try {
             dispatch(cartLoading());
-            const response = await api.get(`http://rosbackend/api/cart?items=${await JSON.parse(items).map(item => item.id).join(",")}`);
+            const response = await api.get(`http://rosbackend/api/cart?items[]=${cart.join("&items[]=")}`);
             if (response.status === 200) {
                 dispatch(cartSuccess(response.data));
             } else {

@@ -5,8 +5,9 @@ import { responsive } from './RecomendedResponsive';
 import { api } from "../../api/api.get";
 import config from "../../config/main";
 import { Link } from "react-router-dom";
+import BouquetCardLoader from "../../components/loaders/BouquetCardLoader";
 
-const RecomendedSlider = (props) => {
+const RecomendedSlider = () => {
     const [recomended, setRecomended] = useState([]);
     useEffect(() => {
         (async () => {
@@ -29,21 +30,23 @@ const RecomendedSlider = (props) => {
                     containerClass="carousel-container"
                     dotListClass="custom-dot-list-style"
                 >
-                    {recomended.map((recomend) => {
-                        return (
-                            <Link className="flex h-full" key={recomend.id} to={`/bouquet/${recomend.id}`}>
-                                <div className="border w-full flex flex-col border-gray-700 text-black border-solid m-2 p-6 rounded-lg">
-                                    <img className="w-full object-cover object-center rounded h-80 mb-4" src={config.domain + recomend.image} alt="" />
-                                    <h2 className="text-lg flex-auto font-medium title-font mb-2">{recomend.name}</h2>
-                                    <p className="leading-relaxed flex-auto text-base">{recomend.short_description}</p>
-                                    <div className="text-center mt-2 leading-none flex justify-between w-full">
-                                        <span className=" mr-3 inline-flex items-center leading-none text-xl  py-1 ">
-                                            {recomend.price} руб.\шт.
-                                        </span>
+                    {recomended.length
+                        ? recomended.map((recomend) => {
+                            return (
+                                <Link className="flex h-full" key={recomend.id} to={`/bouquet/${recomend.id}`}>
+                                    <div className="border w-full flex flex-col border-gray-700 text-black border-solid m-2 p-6 rounded-lg">
+                                        <img className="w-full object-cover object-center rounded h-80 mb-4" src={config.domain + recomend.image} alt="" />
+                                        <h2 className="text-lg flex-auto font-medium title-font mb-2">{recomend.name}</h2>
+                                        <p className="leading-relaxed flex-auto text-base">{recomend.short_description}</p>
+                                        <div className="text-center mt-2 leading-none flex justify-between w-full">
+                                            <span className=" mr-3 inline-flex items-center leading-none text-xl  py-1 ">
+                                                {recomend.price} руб.\шт.
+                                            </span>
+                                        </div>
                                     </div>
-                                </div>
-                            </Link>);
-                    })}
+                                </Link>);
+                        })
+                        : [1,2,3,4].map(item => <BouquetCardLoader key={item} />)}
                 </Carousel>
             </div>
         </>

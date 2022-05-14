@@ -1,26 +1,18 @@
-import Cookies from "js-cookie";
-import { cartSuccess, cartLoading, cartFailure } from "../reducers/CartReducer";
+import { api } from "../../api/api.get";
+import { bouquetsLoading, bouquetsSuccess, bouquetsFailure } from "../reducers/MainReducer";
 
-const bouquetsThunk = () => {
+const bouquetsThunk = (address) => {
     return async (dispatch) => {
         try {
-            dispatch(cartLoading());
-            const response = await fetch(`http://rosbackend/api/cart`, {
-                method: 'POST',
-                headers: {
-                    'Content-type': 'application/json',
-                    'Accept': 'application/json',
-                },
-                body: Cookies.get('cart'),
-            });
-            if (response.ok) {
-                dispatch(cartSuccess(await response));
+            dispatch(bouquetsLoading());
+            const response = await api.get(address);
+            if (response.status === 200) {
+                dispatch(bouquetsSuccess(response.data));
             } else {
-                const result = await response;
-                dispatch(cartFailure(result.message));
+                dispatch(bouquetsFailure(response.message));
             }
         } catch (err) {
-            dispatch(cartFailure(err));
+            dispatch(bouquetsFailure(err.response.data));
         }
     }
 }

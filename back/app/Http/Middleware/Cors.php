@@ -9,8 +9,9 @@ use Illuminate\Http\Request;
 class Cors
 {
     protected $domains = [
-        'http://localhost:3000',
-        'http://rosbackend/'
+        'http://rosbuket',
+        'http://rosbackend/',
+        'http://localhost:3000'
     ];
  
     /**
@@ -26,7 +27,7 @@ class Cors
         // и разрешен ли домен
         $origin = $request->headers->get('Origin');
         if(!in_array($origin, $this->domains, true)) {
-            return new Response('Forbidden', 403);
+            return new Response($origin, 403);
         }
  
         //если есть, то устанавливаем нужные заголовки

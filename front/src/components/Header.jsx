@@ -57,7 +57,7 @@ function Header() {
                             <nav className="header__nav">
                                 <ul className="header__nav__list mt-4">
                                     {nav.map((navItem, index) => {
-                                        return <li className='px-2' key={index}>{navItem}</li>
+                                        return nav.length > index + 1 && <li className='px-2' key={index}>{navItem}</li>
                                     })}
                                 </ul>
                             </nav>

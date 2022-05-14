@@ -6,7 +6,7 @@ import { cartUpdateItem, cartDeleteItem } from "../../store/reducers/CartReducer
 import cartStore from "./cart-store";
 
 const CartItem = ({ item }) => {
-    const [qty, setQty] = useState(item.qty);
+    const [qty, setQty] = useState(item.quantity);
     const dispatch = useDispatch();
     const updateQtyHandler = () => {
         cartStore.updateItem(item.id, qty);
@@ -46,7 +46,7 @@ const CartItem = ({ item }) => {
             </td>
             <td className="text-right">
                 <span className="text-sm lg:text-base font-medium">
-                    {item.price * item.qty}₽
+                    {item.price * item.quantity}₽
                 </span>
             </td>
         </tr>

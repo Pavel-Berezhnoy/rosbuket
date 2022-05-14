@@ -4,27 +4,28 @@ import { useDispatch, useSelector } from "react-redux";
 import { GET_CATEGORIES } from "../../../store/reducers/CategorisReducer";
 import Card from "./Card";
 import { useParams } from "react-router-dom";
+import CategoryCardLoader from "../../../components/loaders/CategoryCardLoader";
+import categoriesThunk from "../../../store/actions/categoriesThunk";
 
-const CatalogCards = (props) => {
+const CatalogCards = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
+
   React.useEffect(() => {
-    const fetchCategories = async () => {
-      const categoriesApi = await api.get(`/api/catalog?categoryId=${id ? id : 0}`);
-      dispatch({
-        type: GET_CATEGORIES,
-        payload: categoriesApi.data,
-      });
-    }
-    fetchCategories();
+    dispatch(categoriesThunk(`/api/catalog?categoryId=${id ? id : 0}`));
   }, [id, dispatch]);
-  const catalogList = useSelector(state => state.categoryReducer.categories);
+
+  const catalogData = useSelector(state => state.categoryReducer);
   return (
-    <>
-      {catalogList.length > 0 ? <div className="catalog__cards mt-16">{catalogList.map((val) => {
-        return <Card key={val.id} id={val.id} title={val.name} image={val.image} />
-      })}</div> : ''}
-    </>
+    <div className="catalog__cards mt-16">
+      {!catalogData.isLoading
+        ? (catalogData.categories.length
+          ? catalogData.categories.map((val) => {
+            return <Card key={val.id} id={val.id} title={val.name} image={val.image} />
+          })
+          : <></>)
+        : [1, 2, 3].map(item => <CategoryCardLoader key={item} />)}
+    </div>
   );
 }
 
