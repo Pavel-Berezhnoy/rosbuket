@@ -11,9 +11,9 @@ const MultiFilter = ({ items, activeItems, setActiveItem }) => {
                     return (
                         <ActiveItem key={activeItem.value} activeItems={activeItems} item={activeItem} setActiveItem={setActiveItem}></ActiveItem>
                     )
-                }) : <span>Выберите категории...</span>}
+                }) : <span>Выберите ...</span>}
             </div>
-            {openDropdown ? <DropdownMenu items={items} activeItems={activeItems} setActiveItem={setActiveItem} /> : ""}
+            {openDropdown && <DropdownMenu items={items} activeItems={activeItems} setActiveItem={setActiveItem} />}
         </>
     )
 }
@@ -23,7 +23,7 @@ const ActiveItem = ({ item, activeItems, setActiveItem }) => {
         <div className="mx-2 p-2 border pr-6 rounded border-solid border-gray-700">
             <span>{item.label}</span>
             <span
-                onClick={() => setActiveItem(activeItems.filter(activeItem => activeItem.value !== item.value)) }
+                onClick={() => setActiveItem(activeItems.filter(activeItem => activeItem.value !== item.value))}
                 className="cursor-pointer ml-2 w-4 h-4 relative before:content-[''] before:absolute before:top-2 before:rotate-45 before:w-4 before:h-0.5 before:bg-red-500 after:content-[''] after:absolute after:top-2 after:rotate-[-45deg] after:w-4 after:h-0.5 after:bg-red-500"></span>
         </div>
     );

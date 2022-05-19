@@ -27,7 +27,12 @@ export const OpenModal = createContext({
         open: false,
         text: '',
     },
-    setOpenedState: () => {},
+    setOpenedState: () => { },
+});
+
+export const openMessage = (text) => ({
+    open: true,
+    text
 });
 
 const SuccessMessage = ({ children }) => {

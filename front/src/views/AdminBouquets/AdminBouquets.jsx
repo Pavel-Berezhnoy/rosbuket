@@ -15,12 +15,14 @@ const AdminBouquets = () => {
     const [bouquets, setBouquets] = useState([]);
     const [deleteBouquet, setDeleteBouquet] = useState();
     const questionPopup = useQuestionPopup();
+    
     useEffect(() => {
         (async () => {
             const response = await api.get("/api/admin/bouquets");
             setBouquets(response.data);
         })()
     }, [deleteBouquet]);
+
     const deleteHandle = async (id) => {
         questionPopup.setQuestion(true);
         await api.delete("/api/admin/bouquets", { id: id });

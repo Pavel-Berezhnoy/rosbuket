@@ -13,20 +13,21 @@ import useQuestionPopup from '../../hooks/useQuestionPopup'
 
 export default function AdminFlowers() {
   const [flowers, setFlowers] = useState([]);
-  const [deletedFlower, setDeletedFlower] = useState();
   const questionPopup = useQuestionPopup();
+
   useEffect(() => {
     (async () => {
       const response = await api.get("/api/admin/glossary");
       setFlowers(response.data);
-    })()
-  }, [deletedFlower]);
+    })();
+  }, []);
 
   const deleteFlowerHandle = async (id) => {
     questionPopup.setQuestion(true);
+    setFlowers(prevState => prevState.filter(flower => flower.id !== id));
     await api.delete("/api/admin/glossary", { id: id });
-    setDeletedFlower(id);
   }
+
   return (
     <>
       <AdminTitile text={"Глоссарий"} linkAdd={"/admin/glossary/add"} />

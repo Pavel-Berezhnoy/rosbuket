@@ -8,6 +8,8 @@ import Cart from '../../views/Cart/Cart'
 import Catalog from '../../views/Catalog/Catalog'
 import Contact from '../../views/Contact/Contact'
 import Delivery from '../../views/Delivery/Delivery'
+import Glossary from '../../views/Glossary/Glossary'
+import GlossaryDetail from '../../views/GlossaryDetail/GlossaryDetail'
 import Main from '../../views/Main/Main'
 import Footer from '../Footer'
 import Header from '../Header'
@@ -29,6 +31,8 @@ export default function PublicLayout() {
           <Route path="/login" component={Login} />
           <Route path="/category/:id" component={Catalog} />
           <Route path="/bouquet/:id" component={Detail} />
+          <Route path="/glossary" exact component={Glossary} />
+          <Route path="/glossary/:id" component={GlossaryDetail} />
           <Route component={NotFoundPage} />
         </Switch>
       </div>

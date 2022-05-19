@@ -1,6 +1,6 @@
 const initialState = {
   isLoading: false,
-  bouquet: {},
+  bouquet: {}, 
   errors: null,
 };
 

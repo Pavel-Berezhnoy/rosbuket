@@ -10,7 +10,7 @@ class FlowerController extends Controller
 {
     public function index()
     {
-        return Flower::all();
+        return Flower::paginate(15);
     }
 
     public function create(Request $request, FlowerService $flowerService)
@@ -33,8 +33,17 @@ class FlowerController extends Controller
         return Flower::all();
     }
 
-    public function view($id)
+    public function view($flowerId)
     {
-        return Flower::where('id', $id)->first();
+        return $this->findOrFail($flowerId);
+    }
+
+    public function findOrFail($id)
+    {
+        $flower = Flower::where('id', $id)->first();
+        if ($flower) 
+            return $flower->toJson();
+        else
+            return response()->json(['status' => 'error', 'message' => 'Такой записи в глоссарии не существует!'],404);
     }
 }

@@ -12,7 +12,7 @@ const OrderForm = () => {
         address: "",
         message: ""
     });
-    
+
     const message = useContext(OpenModal);
     const dispatch = useDispatch();
     const cart = useSelector(state => state.cartReducer.cart) || [];

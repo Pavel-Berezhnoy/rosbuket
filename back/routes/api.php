@@ -3,10 +3,9 @@
 use App\Http\Controllers\AdminBouquetsController;
 use App\Http\Controllers\AdminCategoriesController;
 use App\Http\Controllers\AdminOrderController;
+use App\Http\Controllers\AnswerController;
 use App\Http\Controllers\BouquetsController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\MainController;
@@ -14,6 +13,7 @@ use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FlowerController;
+use App\Http\Controllers\ReviewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,13 +29,18 @@ use App\Http\Controllers\FlowerController;
 
 Route::get('/main', [MainController::class, 'index']);
 Route::get('/catalog', [CategoryController::class, 'index']);
+Route::get('/review', [ReviewController::class, 'index']);
 Route::get('/category/all', [CategoryController::class, 'all']);
 Route::get('/category/{id}', [CategoryController::class, 'view']);
 Route::get('/bouquet/{id}', [BouquetsController::class, 'view']);
+Route::get('/glossary', [FlowerController::class, 'index']);
+Route::get('/glossary/{id}', [FlowerController::class, 'view']);
 Route::get('/cart', [CartController::class, 'index']);
 Route::post('/cart', [CartController::class, 'create']);
 Route::post('/question', [QuestionController::class, 'create']);
+Route::post('/review', [ReviewController::class, 'create']);
 Route::get('/admin/settings', [SettingsController::class, 'index']);
+Route::post('/answer', [AnswerController::class, 'create']);
 
 Route::group([
     'middleware' => 'api',

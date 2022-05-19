@@ -19,7 +19,7 @@ class BouquetsController extends Controller
 
     public function findOrFail($id)
     {
-        $bouquet = Bouquet::where('id', $id)->with('categories')->first();
+        $bouquet = Bouquet::where('id', $id)->with(['categories', 'flowers'])->first();
         if ($bouquet) 
             return $bouquet->toJson();
         else

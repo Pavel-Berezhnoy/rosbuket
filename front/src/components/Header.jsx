@@ -13,6 +13,7 @@ function Header() {
 
     const nav = [
         <Link to='/catalog'>Каталог</Link>,
+        <Link to='/glossary'>Глоссарий</Link>,
         <Link to='/delivery'>Доставка</Link>,
         <Link to='/ask'>Задать вопрос</Link>,
         <Link to='/contact'>Контакты</Link>,

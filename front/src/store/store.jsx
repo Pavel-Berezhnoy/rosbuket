@@ -7,9 +7,11 @@ import bouquetReducer from './reducers/BouquetReducer';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import cartReducer from './reducers/CartReducer';
 import settingsReducer from './reducers/SettingsReducer';
+import glossaryReducer from './reducers/GlossaryReducer';
+import reviewReducer from './reducers/ReviewReducer';
 
 const reducer = combineReducers({
-    mainReducer, loadAuthReducer, categoryReducer, bouquetReducer, cartReducer, settingsReducer,
+    mainReducer, loadAuthReducer, categoryReducer, bouquetReducer, cartReducer, settingsReducer, glossaryReducer, reviewReducer
 });
 
 const store = createStore(reducer, composeWithDevTools(

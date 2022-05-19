@@ -1,7 +1,5 @@
 import React from "react";
-import { api } from "../../../api/api.get";
 import { useDispatch, useSelector } from "react-redux";
-import { GET_CATEGORIES } from "../../../store/reducers/CategorisReducer";
 import Card from "./Card";
 import { useParams } from "react-router-dom";
 import CategoryCardLoader from "../../../components/loaders/CategoryCardLoader";
@@ -24,7 +22,7 @@ const CatalogCards = () => {
             return <Card key={val.id} id={val.id} title={val.name} image={val.image} />
           })
           : <></>)
-        : [1, 2, 3].map(item => <CategoryCardLoader key={item} />)}
+        : [1, 2, 3, 4].map(item => <CategoryCardLoader key={item} />)}
     </div>
   );
 }

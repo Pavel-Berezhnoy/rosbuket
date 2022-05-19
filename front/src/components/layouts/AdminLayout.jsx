@@ -1,9 +1,9 @@
 import React from 'react'
-import { useSelector } from 'react-redux';
 import { Redirect, Route, Switch } from 'react-router-dom/cjs/react-router-dom.min';
 import { token } from '../../services/tokenService';
-import AdminAddUpdateBouquet from '../../views/AdminBouquets/AdminAddUpdate';
 import AdminBouquets from '../../views/AdminBouquets/AdminBouquets';
+import InsertBouquet from '../../views/AdminBouquets/InsertBouquet';
+import UpdateBouquet from '../../views/AdminBouquets/UpdateBouquet';
 import AdminCategories from '../../views/AdminCategory/AdminCategories';
 import InsertUpdateCategory from '../../views/AdminCategory/InsertUpdateCategory';
 import AdminFlowers from '../../views/AdminFlowers/AdminFlowers';
@@ -33,8 +33,8 @@ export default function AdminLayout() {
             <Route path="/admin/orders" component={AdminOrders} />
             <Route path="/admin/order/update/:id" component={UpdateOrder} />
             <Route path="/admin/bouquets" component={AdminBouquets} />
-            <Route path="/admin/bouquet/add" component={AdminAddUpdateBouquet} />
-            <Route path="/admin/bouquet/update/:id" component={AdminAddUpdateBouquet} />
+            <Route path="/admin/bouquet/add" component={InsertBouquet} />
+            <Route path="/admin/bouquet/update/:id" component={UpdateBouquet} />
             <Route path="/admin/questions" component={AdminQuestions} />
             <Route path="/admin/question/update/:id" component={UpdateQuestion} />
             <Route path="/admin/settings" component={AdminSettings} />
