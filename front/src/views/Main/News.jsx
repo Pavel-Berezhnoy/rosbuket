@@ -1,23 +1,18 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
-import { api } from '../../api/api.get';
+import { useSelector } from 'react-redux';
 import BouquetCard from '../Catalog/components/BouquetCard';
 
 const News = () => {
-    const [news, setNews] = useState([]);
-    useEffect(() => {
-        (async () => {
-            const response = await api.get(`/api/main?new=true`);
-            setNews(response.data);
-        })();
-    }, []);
+    const mainData = useSelector(state => state.mainReducer.mainCards);
     return (
         <>
             <h2 className="popular__title">Новинки</h2>
             <div className="bouquets_cards mt-16">
-                {news.length ? news.map((newBouquet) => {
+                {mainData.news.length ? mainData.news.map((newBouquet) => {
                     return <BouquetCard
                         key={newBouquet.id}
+                        rating={newBouquet.rating}
+                        countRating={newBouquet.countRating}
                         price={newBouquet.price}
                         desc={newBouquet.short_description}
                         discount={newBouquet.discount}

@@ -2,11 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Bouquet;
 use Illuminate\Http\Request;
-use App\DTO\CartItemDTO\CartItemDto;
-use App\Models\Order;
-use App\Models\OrderItem;
 use App\Services\CartService\CartService;
 
 class CartController extends Controller

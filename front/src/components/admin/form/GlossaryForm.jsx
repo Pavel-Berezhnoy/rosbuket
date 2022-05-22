@@ -29,8 +29,13 @@ export default function GlossaryForm({ flowerInfo }) {
       </div>
       <div className="md:flex items-center mt-8">
         <div className="w-full flex flex-col">
-          <label className="font-semibold leading-none">Показать на сайте?</label>
-          <input type="checkbox" value={flower?.active} checked={flower.active} onChange={() => setFlower({ ...flower, active: !flower.active })} name="active" className="leading-none text-gray-900 p-3 focus:outline-none focus:border-blue-700 mt-4 bg-gray-100 border rounded border-gray-200" />
+          <span className="text-sm lg:text-base font-medium">
+            <label htmlFor="checkbox" className="relative flex-inline items-center isolate p-4 rounded-2xl">
+              <input name='active' id="checkbox" type="checkbox" onChange={(e) => setFlower({ ...flower, active: e.target.checked ? 1 : 0 })} checked={flower?.active} className="relative peer z-20 text-purple-600 rounded-md focus:ring-0" />
+              <span className="ml-2 relative z-20">Показать на странице</span>
+              <div className="absolute inset-0 bg-white peer-checked:bg-rose-50 peer-checked:border-purple-300 z-10 border rounded-2xl"></div>
+            </label>
+          </span>
         </div>
       </div>
       <div className="grid grid-cols-1 mt-5 mx-7">

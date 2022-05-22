@@ -6,7 +6,6 @@
   width: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
   box-shadow: inset 0px 0px 0px 1px #ececec;
   padding: 6px;
   transition: box-shadow .3s;

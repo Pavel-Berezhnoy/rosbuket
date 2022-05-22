@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from 'react-router-dom';
+import CardReview from "../../components/cardReviews/CardReview";
+import PriceView from "../../components/discount/DiscountView";
 import config from "../../config/main";
 
 function Card(props) {
@@ -10,19 +12,15 @@ function Card(props) {
                 <img className="w-full object-contain object-center rounded h-80 mb-4" src={config.domain + bouquet.image} alt="" />
                 <h2 className="text-2xl flex-auto font-medium title-font mb-2">{bouquet.name}</h2>
                 <p className="leading-relaxed flex-auto text-lg">{bouquet.short_description}</p>
-                <div
-                    className="text-center mt-2 leading-none flex flex-col justify-between w-full">
-                    {bouquet.discount > 0 ?
-                        <span className="whitespace-nowrap inline-flex font-bold items-center leading-none text-xl py-1">
-                            {bouquet.price - bouquet.discount} руб.\шт.
-                        </span>
-                        : ``}
-                    <span className="whitespace-nowrap inline-flex items-center leading-none text-lg py-1">
-                        {bouquet.discount > 0 ?
-                            <del className="text-red-300">{bouquet.price} руб.\шт.</del>
-                            :
-                            `${bouquet.price} руб.\\шт.`}
-                    </span>
+                <div className="text-center mt-2 leading-none flex justify-between w-full">
+                    <div className="flex flex-col">
+                        <PriceView price={bouquet.price} discount={bouquet.discount} />
+                    </div>
+                    <div className="flex items-center">
+                        <CardReview ratingValue={bouquet.rating} />
+                        <span className="pl-2">{bouquet.countRating}</span>
+                    </div>
+
                 </div>
             </div>
         </Link>

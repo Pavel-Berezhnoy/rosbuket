@@ -2,6 +2,8 @@ import React from "react";
 import './../styles/bouquetcard.css';
 import { Link } from 'react-router-dom';
 import config from "./../../../config/main";
+import CardReview from "../../../components/cardReviews/CardReview";
+import PriceView from "../../../components/discount/DiscountView";
 
 
 function BouquetCard(props) {
@@ -15,10 +17,13 @@ function BouquetCard(props) {
           <div className="catalog__bouquet-card-description">
             <h3 className="catalog__bouquet-card-title">{props.title}</h3>
             <p className="mb-4">{props.desc}</p>
-            {props.discount > 0 ? <span className="whitespace-nowrap text-black inline-flex font-bold items-center leading-none text-xl py-1">{props.price - props.discount} руб.\шт.</span> : ``}
-            <span className="catalog__bouquet-card-price mt-0">
-              {props.discount > 0 ? <del className="text-red-300">{props.price} руб.\шт.</del> : `${props.price} руб.\\шт.`}
-            </span>
+            <div className="flex w-full justify-between">
+              <PriceView price={props.price} discount={props.discount} />
+              <div className="flex items-center">
+                <CardReview ratingValue={props.rating} />
+                <span className="pl-2">{props.countRating}</span>
+              </div>
+            </div>
           </div>
         </div>
       </Link>

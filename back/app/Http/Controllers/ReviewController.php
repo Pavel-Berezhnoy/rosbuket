@@ -19,13 +19,24 @@ class ReviewController extends Controller
         $reviewService->createReview($request);
     }
 
-    public function adminIndex()
+    public function adminIndex(ReviewService $reviewService)
     {
-        return Review::all()->toJson();
+        return $reviewService->prepareAdminReview()->toJson();
     }
 
     public function adminView($reviewId)
     {
         return Review::where('id', $reviewId)->with('answers')->first();
     }
+
+    public function update(Request $request, ReviewService $reviewService, Review $review)
+    {
+        return $reviewService->adminUpdate($request);
+    }
+
+    public function delete(Request $request)
+    {
+        Review::destroy($request['id']);
+    }
+        
 }

@@ -11,14 +11,16 @@ export default function Glossary() {
   useEffect(() => {
     dispatch(glossaryThunk(`api/glossary`));
   }, []);
-  
+
   return (
     <section className='px-2'>
       <h1 className='text-neutral-500 md:text-4xl text-2xl mt-16'>Глоссарий - узнай о цветах чуть больше!</h1>
       <div className='mt-16'>
-        {glossaryData.flowers.length
-          ? glossaryData.flowers.map(flower => <GlossaryCard key={flower.id} flower={flower} />)
-          : [1,2,3,4,5,6,7,8,9,10].map(item => <GlossaryLoader key={item} />)}
+        {glossaryData.isLoading
+          ? [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(item => <GlossaryLoader key={item} />)
+          : (glossaryData.flowers.length
+            ? glossaryData.flowers.map(flower => <GlossaryCard key={flower.id} flower={flower} />)
+            : <div className='text-2xl text-center'><span>Записей в глоссарии пока нет</span></div>)}
       </div>
     </section>
   )

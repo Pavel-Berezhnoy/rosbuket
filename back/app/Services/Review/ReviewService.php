@@ -2,9 +2,11 @@
 
 namespace App\Services\Review;
 
+use App\Models\Answer;
 use App\Models\Review;
 use Carbon\Carbon;
-use Illuminate\Support\Collection;
+use DateTime;
+use Illuminate\Http\Request;
 
 class ReviewService
 {
@@ -16,7 +18,7 @@ class ReviewService
     $this->review = $review;
   }
 
-  public function createReview($request)
+  public function createReview(Request $request)
   {
     $this->review->fill($request->all());
     $this->review->created_at = Carbon::now();
@@ -24,9 +26,14 @@ class ReviewService
     $this->review->save();
   }
 
-  public function prepareReview($bouquet_id): object
+  public function prepareReview(int $bouquet_id): object
   {
-    $reviews = Review::where(['bouquet_id' => $bouquet_id, 'validate' => 1])->with(['answers', 'answers.answer'])->get();
+    $reviews = Review::where(['bouquet_id' => $bouquet_id, 'validate' => 1])
+      ->with([
+        'answers',
+        'answers.answer'
+      ])
+      ->get();
     $totalRate = collect($reviews)->avg('estimate');
     $rate = collect($reviews)->countBy('estimate');
 
@@ -35,5 +42,29 @@ class ReviewService
       'total_rate' => $totalRate,
       'reviews' => $reviews
     ]);
+  }
+
+  public function prepareAdminReview(): object
+  {
+    $reviews = Review::with('bouquet')
+      ->orderBy('created_at', 'desc')
+      ->get();
+    return $reviews;
+  }
+
+  public function adminView(int $review_id): object
+  {
+    return Review::where('id', $review_id)->with('answers')->first();
+  }
+
+  public function adminUpdate(Request $request)
+  {
+    $reviewAttributes = collect($request->all())->toArray();
+    $this->review = Review::where('id', $reviewAttributes['id'])->first();
+    $this->review->update($reviewAttributes);
+    collect($reviewAttributes['answers'])->each(function ($answer) {
+      $answer['created_at'] = new DateTime($answer['created_at']);
+      $this->review->answers()->where('id', $answer['id'])->update($answer);
+    });
   }
 }

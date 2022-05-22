@@ -7,7 +7,6 @@ import CountRating from './CountRating';
 
 export default function CountReviews({ reviewsRate, totalRate }) {
   const loading = useSelector(state => state.reviewReducer.isLoading);
-  const rate = [5, 4, 3, 2, 1];
   return (
     <>
       <div className='flex pb-16 border-solid border-slate-200 border-b-2'>
@@ -40,15 +39,33 @@ export default function CountReviews({ reviewsRate, totalRate }) {
           </CircularProgressbarWithChildren >
         </div>
         <div className='ml-8'>
-          {rate.map(rateValue => loading
-            ? <div key={rateValue} className='my-2'>
+          {loading
+            ? <div className='my-2'>
               <Skeleton className='my-2' width={200} height={20} />
               <Skeleton width={200} height={40} />
             </div>
-            : <div key={rateValue}>
-              <span className='font-bold underline'>Отличных оценок: {reviewsRate && reviewsRate[rateValue] || 0}</span>
-              <CountRating ratingValue={rateValue} />
-            </div>)}
+            : <>
+              <div>
+                <span className='font-bold underline'>Отличных отзывов: {reviewsRate && reviewsRate[5] || 0}</span>
+                <CountRating ratingValue={5} />
+              </div>
+              <div>
+                <span className='font-bold underline'>Хороших отзывов: {reviewsRate && reviewsRate[4] || 0}</span>
+                <CountRating ratingValue={4} />
+              </div>
+              <div>
+                <span className='font-bold underline'>Средних отзывов: {reviewsRate && reviewsRate[3] || 0}</span>
+                <CountRating ratingValue={3} />
+              </div>
+              <div>
+                <span className='font-bold underline'>Ниизких отзывов: {reviewsRate && reviewsRate[2] || 0}</span>
+                <CountRating ratingValue={2} />
+              </div>
+              <div>
+                <span className='font-bold underline'>Плохих отзывов: {reviewsRate && reviewsRate[1] || 0}</span>
+                <CountRating ratingValue={1} />
+              </div>
+            </>}
         </div>
       </div>
     </>

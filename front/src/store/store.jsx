@@ -9,9 +9,10 @@ import cartReducer from './reducers/CartReducer';
 import settingsReducer from './reducers/SettingsReducer';
 import glossaryReducer from './reducers/GlossaryReducer';
 import reviewReducer from './reducers/ReviewReducer';
+import adminReviewsReducer from './reducers/AdminReviewsReducer';
 
 const reducer = combineReducers({
-    mainReducer, loadAuthReducer, categoryReducer, bouquetReducer, cartReducer, settingsReducer, glossaryReducer, reviewReducer
+    mainReducer, loadAuthReducer, categoryReducer, bouquetReducer, cartReducer, settingsReducer, glossaryReducer, reviewReducer, adminReviewsReducer
 });
 
 const store = createStore(reducer, composeWithDevTools(

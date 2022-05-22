@@ -19,8 +19,6 @@ input[type=button],input[type=submit] {
 }
 input[type=checkbox] {
     cursor: pointer;
-    margin-right: 8px;
-    margin-bottom: 24px;
 }
 
 input[type=button]:hover {

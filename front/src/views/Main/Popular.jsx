@@ -1,19 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { api } from '../../api/api.get';
+import React from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { responsive } from './responsive';
 import Card from './Card';
 import BouquetCardLoader from "../../components/loaders/BouquetCardLoader";
+import { useSelector } from "react-redux";
 
 export default function Popular() {
-    const [popular, setPopular] = useState([]);
-    useEffect(() => {
-        (async () => {
-            const response = await api.get(`/api/main?popular=true`);
-            setPopular(response.data);
-        })();
-    }, []);
+    const mainData = useSelector(state => state.mainReducer.mainCards);
     return (
         <div className="popular">
             <h2 className="popular__title">Популярные</h2>
@@ -31,8 +25,8 @@ export default function Popular() {
                     dotListClass="custom-dot-list-style"
                 >
                     {
-                        popular.length
-                            ? popular.map((bouquet) => {
+                        mainData.popular.length
+                            ? mainData.popular.map((bouquet) => {
                                 return <Card key={bouquet.id} bouquet={bouquet} />;
                             })
                             : [1, 2, 3, 4].map(item => <BouquetCardLoader key={item} />)

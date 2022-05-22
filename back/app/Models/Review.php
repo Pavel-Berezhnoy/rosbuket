@@ -15,13 +15,18 @@ class Review extends Model
 
     protected $guarded = ['id'];
 
+    public static $status = [
+        '1' => 'Прошло валидацию',
+        '0' => 'Ожидает валидации'
+    ];
+
     public function bouquet()
     {
-        return $this->hasOne(Bouquet::class);
+        return $this->belongsTo(Bouquet::class);
     }
 
     public function answers()
     {
-        return $this->hasMany(Answer::class);
+        return $this->hasMany(Answer::class)->where('validate', 1);
     }
 }

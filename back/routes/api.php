@@ -14,6 +14,7 @@ use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FlowerController;
 use App\Http\Controllers\ReviewController;
+use App\Models\Review;
 
 /*
 |--------------------------------------------------------------------------
@@ -89,4 +90,9 @@ Route::group([
     Route::post('/glossary', [FlowerController::class, 'create']);
     Route::put('/glossary', [FlowerController::class, 'update']);
     Route::delete('/glossary', [FlowerController::class, 'delete']);
+
+    Route::get('/review', [ReviewController::class, 'adminIndex']);
+    Route::get('/review/{id}', [ReviewController::class, 'adminView']);
+    Route::put('/review', [ReviewController::class, 'update']);
+    Route::delete('/review', [ReviewController::class, 'delete']);
 });

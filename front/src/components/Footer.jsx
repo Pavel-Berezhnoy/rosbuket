@@ -52,7 +52,7 @@ function Footer() {
                 </div>
                 <div className="footer__politics-info">
                     <div className="footer__politics">
-                        <span>2021 © «РосБукет», Все права защищены </span>
+                        <span>2022 © «РосБукет», Все права защищены </span>
                         <span>Разработал студент колледжа РКРИПТ группы ПО-42 Бережной Павел</span>
                     </div>
                 </div>

@@ -14,28 +14,32 @@ use App\Models\Bouquet;
 
 class CartItemDto
 {
-    public $id;
+    public int $id;
 
-    public $name;
+    public string $name;
 
-    public $image;
+    public string $image;
 
-    public $price;
+    public float $price;
 
-    public $quantity = 0;
+    public float $discount;
+
+    public int $quantity = 0;
 
     public function __construct(
         int $id,
         string $name,
         string $image,
-        int $price,
-        int $quantity
+        float $price,
+        int $quantity,
+        float $discount
     ) {
-        $this->setId($id);
-        $this->setName($name);
-        $this->setImage($image);
-        $this->setPrice($price);
-        $this->setQuantity($quantity);
+        $this->id = $id;
+        $this->name = $name;
+        $this->image = $image;
+        $this->price = $price;
+        $this->quantity = $quantity;
+        $this->discount = $discount;
     }
 
     /**
@@ -48,32 +52,8 @@ class CartItemDto
             $bouquet->name,
             $bouquet->image,
             $bouquet->price,
-            $qty
+            $qty,
+            $bouquet->discount
         );
-    }
-
-    public function setId(int $id)
-    {
-        $this->id = $id;
-    }
-
-    public function setName(string $name)
-    {
-        $this->name = $name;
-    }
-
-    public function setImage(string $image)
-    {
-        $this->image = $image;
-    }
-
-    public function setPrice(string $price)
-    {
-        $this->price = $price;
-    }
-
-    public function setQuantity(string $quantity)
-    {
-        $this->quantity = $quantity;
     }
 }

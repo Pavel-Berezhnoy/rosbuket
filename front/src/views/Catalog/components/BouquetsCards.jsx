@@ -18,7 +18,7 @@ const BouquetsCards = () => {
       {!bouquetData.isLoading
         ? (bouquetData.bouquets.length
           ? bouquetData.bouquets.map((val) => {
-            return <BouquetCard key={val.id} price={val.price} desc={val.short_description} discount={val.discount} id={val.id} title={val.name} image={val.image} />
+            return <BouquetCard rating={val.rating} countRating={val.countRating} key={val.id} price={val.price} desc={val.short_description} discount={val.discount} id={val.id} title={val.name} image={val.image} />
           })
           : <h2 className="font-bold text-3xl text-center w-full">В этой категории товары пока отсутствуют!</h2>)
         : [1, 2, 3, 4].map(item => <BouquetCardLoader key={item} />)}

@@ -49,7 +49,7 @@ class CartService
         'order_id' => $this->order->id,
         'bouquet_id' => $orderItem['id'],
         'qty' => $orderItem['quantity'],
-        'count_price' => $orderItem['quantity'] * $orderItem['price'],
+        'count_price' => $orderItem['quantity'] * ($orderItem['price'] - $orderItem['discount']),
       ];
     }
     OrderItem::insert($orderItems);

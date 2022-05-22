@@ -22,7 +22,7 @@ export default function GlossaryDetail() {
           : <div>
             <img className='w-full' src={`${config.domain}${flower?.image}`} alt="flower-image" />
             <h1 className='text-2xl font-bold my-8'>{flower?.name}</h1>
-            <p className='text-lg'>{flower?.description}</p>
+            <p className='text-lg text-justify' dangerouslySetInnerHTML={{__html: flower?.description}}></p>
           </div>)}
     </>
   )

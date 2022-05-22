@@ -15,7 +15,7 @@ class Question extends Model
 
     protected $guarded = ['id'];
 
-    public $statusFromCode = [
+    public static $statusFromCode = [
         '0' => 'Новое',
         '1' => 'Просмотрено',
         '2' => 'Ответ отправлен'

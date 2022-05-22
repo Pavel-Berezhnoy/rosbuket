@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 const CartDetail = () => {
     const cart = useSelector(state => state.cartReducer.cart) || [];
     const qtyCartItems = cart.reduce((accumulator, cartItem) => accumulator + Number(cartItem.quantity), 0);
-    const priceCartItem = cart.reduce((accumulator, cartItem) => accumulator + Number(cartItem.price) * Number(cartItem.quantity), 0);
+    const priceCartItem = cart.reduce((accumulator, cartItem) => accumulator + ((cartItem.price - (cartItem.discount || 0)) * Number(cartItem.quantity)), 0);
     return (
         <>
             <div className="lg:px-2">

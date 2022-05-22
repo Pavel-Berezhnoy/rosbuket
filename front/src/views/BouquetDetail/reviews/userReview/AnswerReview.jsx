@@ -18,7 +18,7 @@ export default function AnswerReview({ answer, reviewId }) {
       </p>
       {!showAnswerForm && <button onClick={() => setShowAnswerFrom(!showAnswerForm)} className='text-blue-500 underline p-4'>Ответить</button>}
       {showAnswerForm && <div className='self-stretch'>
-        <AnswerForm reviewId={reviewId} answerId={answer?.id} />
+        <AnswerForm showAnswerForm={setShowAnswerFrom} reviewId={reviewId} answerId={answer?.id} />
       </div>}
     </div>
   )

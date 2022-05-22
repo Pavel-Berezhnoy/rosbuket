@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use DateTime;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,9 +12,14 @@ class Answer extends Model
 
     protected $table = 'answer';
 
-    protected $guarded = ['id'];
+    protected $guarded = ['updated_at'];
 
     const UPDATED_AT = null;
+
+    public function setCreatedAtAttribute($date)
+    {
+        return $this->attributes['created_at'] = new DateTime($date);
+    }
 
     public function review()
     {
@@ -22,6 +28,6 @@ class Answer extends Model
 
     public function answer()
     {
-        return $this->hasOne(Answer::class);
+        return $this->belongsTo(Answer::class);
     }
 }

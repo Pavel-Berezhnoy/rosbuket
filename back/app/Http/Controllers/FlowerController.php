@@ -10,7 +10,7 @@ class FlowerController extends Controller
 {
     public function index()
     {
-        return Flower::paginate(15);
+        return Flower::where('active', 1)->paginate(15);
     }
 
     public function create(Request $request, FlowerService $flowerService)
@@ -41,9 +41,9 @@ class FlowerController extends Controller
     public function findOrFail($id)
     {
         $flower = Flower::where('id', $id)->first();
-        if ($flower) 
+        if ($flower)
             return $flower->toJson();
         else
-            return response()->json(['status' => 'error', 'message' => 'Такой записи в глоссарии не существует!'],404);
+            return response()->json(['status' => 'error', 'message' => 'Такой записи в глоссарии не существует!'], 404);
     }
 }

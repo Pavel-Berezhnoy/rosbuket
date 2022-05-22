@@ -7,29 +7,28 @@ use Illuminate\Http\Request;
 use App\Models\OrderItem;
 use App\Models\Order;
 use App\Models\Question;
+use App\Services\Bouquet\BouquetService;
 use Carbon\Carbon;
 use stdClass;
 
 class MainController extends Controller
 {
-    public function index(Request $request) {
-        if ((bool)$request['sale']) 
-            return Bouquet::where("discount",">",0)->take(10)->get()->toJson();
-        if ((bool)$request['popular']) {
-            $bouquetIds = OrderItem::selectRaw('count(*) as total, bouquet_id')->groupBy('bouquet_id')->orderBy("total",'desc')->take(10)->get()->map(function ($bouquetId) {
-                return $bouquetId->bouquet_id;
-            });
-            return Bouquet::whereIn('id',$bouquetIds)->get();
-        }
-        if ((bool)$request['new']){
-            $time = Carbon::now();
-            return Bouquet::where('created_at',">",$time->subWeek()->format('Y-m-d H:i:s'))->take(8)->get();
-        }
+    public function index(BouquetService $bouquetService)
+    {
+        $bouquetIds = OrderItem::selectRaw('count(*) as total, bouquet_id')->groupBy('bouquet_id')->orderBy("total", 'desc')->take(10)->get()->map(function ($bouquetId) {
+            return $bouquetId->bouquet_id;
+        });
+        $time = Carbon::now();
+        return collect([
+            'popular' => $bouquetService->getRating(Bouquet::whereIn('id', $bouquetIds)->get()),
+            'sales' => $bouquetService->getRating(Bouquet::where("discount", ">", 0)->take(10)->get()),
+            'news' => $bouquetService->getRating(Bouquet::where('created_at', ">", $time->subWeek()->format('Y-m-d H:i:s'))->take(8)->get())
+        ]);
     }
 
     public function adminMain()
     {
-        $orders = Order::orderBy('id','desc')->take(10)->get();
+        $orders = Order::orderBy('id', 'desc')->take(10)->get();
         $filteredOrder = $orders->map(function ($order) {
             $order->status = $order->statusFromCode[$order->status];
             return $order;

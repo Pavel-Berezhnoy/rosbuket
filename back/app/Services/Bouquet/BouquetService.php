@@ -56,4 +56,13 @@ class BouquetService
     $flowers = Flower::whereIn('id', $flowersIds)->get();
     $this->bouquet->flowers()->saveMany($flowers);
   }
+
+  public function getRating(Object $bouquets)
+  {
+    return collect($bouquets)->map(function ($bouquet) {
+      $bouquet->rating = collect($bouquet->reviews)->avg('estimate');
+      $bouquet->countRating = collect($bouquet->reviews)->count();
+      return $bouquet;
+    });
+  }
 }

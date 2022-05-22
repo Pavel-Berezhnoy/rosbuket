@@ -1,23 +1,27 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { api } from '../../api/api.get';
 import SelectRating from '../../views/BouquetDetail/reviews/SelectRating';
+import { openMessage, OpenModal } from '../messages/SuccessMessage';
 
 export default function ReviewForm() {
   const [selectedRating, setSelectedRating] = useState(0);
   const [selectedRatingError, setSelectedRatingError] = useState('');
   const bouquet = useSelector(state => state.bouquetReducer.bouquet);
+  const message = useContext(OpenModal);
 
   const submitReviewHandle = async e => {
     e.preventDefault();
     const reviewForm = new FormData(document.forms.submitReview);
     reviewForm.set('bouquet_id', bouquet.id);
     if (!selectedRating)
-      return setSelectedRatingError('Необходимо выбрать оенку.');
+      return setSelectedRatingError('Необходимо выбрать оценку.');
 
     reviewForm.set('estimate', selectedRating);
     setSelectedRatingError('');
-    await api.post(`api/review`, reviewForm);
+    const response = await api.post(`api/review`, reviewForm);
+    if (response.status === 200)
+      message.setOpenedState(openMessage('Отзыв отправлен! Он появится, как только пройдет модерацию.'));
   }
 
   return (

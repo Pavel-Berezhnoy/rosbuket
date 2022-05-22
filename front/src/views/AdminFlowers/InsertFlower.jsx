@@ -10,6 +10,7 @@ export default function InsertFlower() {
   const submitFlowerHandle = async (e) => {
     e.preventDefault();
     const form = new FormData(document.forms.addUpdate);
+    form.set('active', form.get('active') ? '1' : '0')
     await api.post("/api/admin/glossary", form);
     setOpenedState({
       open: true,

@@ -1,7 +1,7 @@
 import { api } from "../../api/api.get";
 import { glossaryError, glossaryFlowerSuccess, glossaryLoading, glossarySuccess } from "../reducers/GlossaryReducer";
 
-const glossaryThunk = (pageAddress) => {
+const glossaryThunk = pageAddress => {
   return async (dispatch) => {
     try {
       dispatch(glossaryLoading());
@@ -17,12 +17,11 @@ const glossaryThunk = (pageAddress) => {
   }
 }
 
-const glossaryFlowerThunk = (pageAddress) => {
+const glossaryFlowerThunk = pageAddress => {
   return async (dispatch) => {
     try {
       dispatch(glossaryLoading());
       const response = await api.get(pageAddress);
-      console.log(response);
       if (response.status === 200) {
         dispatch(glossaryFlowerSuccess(response.data));
       } else {

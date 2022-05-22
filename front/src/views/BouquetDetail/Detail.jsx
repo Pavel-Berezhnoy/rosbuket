@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getCart } from "../../components/App";
+import PriceView from "../../components/discount/DiscountView";
 import NotFoundBouquet from "../../components/not-found/NotFoundBouquet";
 import config from "../../config/main";
 import bouquetThunk from "../../store/actions/bouquetThunk";
@@ -52,7 +53,7 @@ export default function Detail() {
                         ? <FlowersLine flowers={bouquetData.bouquet.flowers} /> 
                         : <></>}
                       <div className="flex mt-6 items-center">
-                        <span className="title-font font-medium text-2xl text-gray-900">{bouquetData.bouquet.price} руб.\шт.</span>
+                        <PriceView price={bouquetData.bouquet.price} discount={bouquetData.bouquet.discount} />
                         {inCart.length
                           ? <button className="flex ml-auto text-white bg-gray-500 border-0 py-2 px-6 focus:outline-none rounded cursor-default">
                             В корзине

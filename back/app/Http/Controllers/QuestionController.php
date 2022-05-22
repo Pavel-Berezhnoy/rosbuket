@@ -13,7 +13,7 @@ class QuestionController extends Controller
     public function index() {
         $questions = Question::orderby('id','desc')->get();
         $filteredQuestions = $questions->map(function ($question) {
-            $question->status = $question->statusFromCode[$question->status];
+            $question->status = Question::$statusFromCode[$question->status];
             return $question;
         });
         return $filteredQuestions;

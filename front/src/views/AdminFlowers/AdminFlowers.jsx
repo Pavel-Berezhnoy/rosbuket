@@ -39,25 +39,27 @@ export default function AdminFlowers() {
           <AdminTableHeadItem>Короткое описание</AdminTableHeadItem>
         </AdminTableHead>
         <AdminTableBody>
-          {flowers.length ? flowers.map(item => {
-            return <tr key={item.id}>
-              <AdminTableBodyItem>{item.id}</AdminTableBodyItem>
-              <AdminTableBodyItem><img className="max-w-[70px]" src={`${config.domain}${item.image}`} alt="" /></AdminTableBodyItem>
-              <AdminTableBodyItem>{item.name}</AdminTableBodyItem>
-              <AdminTableBodyItem>{item.short_description}</AdminTableBodyItem>
-              <td className="px-6 py-4 relative flex whitespace-no-wrap justify-end border-b border-gray-500 text-sm leading-5">
-                <Link to={`/admin/glossary/update/${item.id}`}>
-                  <button className="px-5 py-2 border-blue-500 border text-blue-500 rounded transition duration-300 hover:bg-blue-700 hover:text-white focus:outline-none">
-                    Обновить
-                  </button>
-                </Link>
-                <DeletePopup
-                  setQuestion={questionPopup.setQuestion}
-                  deleteHandle={() => deleteFlowerHandle(item.id)}
-                />
-              </td>
-            </tr>
-          }) : ""}
+          {flowers.length
+            ? flowers.map(item => {
+              return <tr key={item.id}>
+                <AdminTableBodyItem>{item.id}</AdminTableBodyItem>
+                <AdminTableBodyItem><img className="max-w-[70px]" src={`${config.domain}${item.image}`} alt="" /></AdminTableBodyItem>
+                <AdminTableBodyItem>{item.name}</AdminTableBodyItem>
+                <AdminTableBodyItem><p className='text-justify'>{item.short_description}</p></AdminTableBodyItem>
+                <td className="px-6 py-4 relative flex whitespace-no-wrap justify-end border-b border-gray-500 text-sm leading-5">
+                  <Link to={`/admin/glossary/update/${item.id}`}>
+                    <button className="px-5 py-2 border-blue-500 border text-blue-500 rounded transition duration-300 hover:bg-blue-700 hover:text-white focus:outline-none">
+                      Обновить
+                    </button>
+                  </Link>
+                  <DeletePopup
+                    setQuestion={questionPopup.setQuestion}
+                    deleteHandle={() => deleteFlowerHandle(item.id)}
+                  />
+                </td>
+              </tr>
+            })
+            : ""}
         </AdminTableBody>
       </AdminTable>
     </>

@@ -46,7 +46,7 @@ export default function UserReview({ review }) {
           </button>}
         {!showAnswerForm && <button onClick={() => setShowAnswerFrom(!showAnswerForm)} className='text-blue-500 underline p-4'>Ответить</button>}
       </div>
-      {showAnswerForm && <AnswerForm reviewId={review.id} />}
+      {showAnswerForm && <AnswerForm showAnswerForm={setShowAnswerFrom} reviewId={review.id} />}
       {(showAnswers && review.answers.length !== 0) && review.answers.map(answer => <AnswerReview key={answer.id} answer={answer} reviewId={review.id} />)}
     </div>
   )

@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch } from 'react-redux';
 import { Redirect, Route, Switch } from 'react-router-dom/cjs/react-router-dom.min';
 import { token } from '../../services/tokenService';
+import { adminReviewsThunk } from '../../store/actions/adminReviewsThunk';
 import AdminBouquets from '../../views/AdminBouquets/AdminBouquets';
 import InsertBouquet from '../../views/AdminBouquets/InsertBouquet';
 import UpdateBouquet from '../../views/AdminBouquets/UpdateBouquet';
@@ -14,12 +16,18 @@ import AdminOrders from '../../views/AdminOrders/AdminOrders';
 import UpdateOrder from '../../views/AdminOrders/UpdateOrder';
 import AdminQuestions from '../../views/AdminQuestion/AdminQuestion';
 import UpdateQuestion from '../../views/AdminQuestion/UpdateQuestion';
+import Reviews from '../../views/AdminReviews/Reviews';
+import UpdateReview from '../../views/AdminReviews/UpdateReview';
 import AdminSettings from '../../views/AdminSettings/AdminSettings';
 import HeaderAdmin from '../admin/HeaderAdmin'
 import NotFoundPage from '../not-found/NotFoundPage';
 
 export default function AdminLayout() {
   const logged = token.getToken();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(adminReviewsThunk());
+  },[]); 
   return (
     <div className="flex flex-row relative h-full">
       <HeaderAdmin />
@@ -39,6 +47,8 @@ export default function AdminLayout() {
             <Route path="/admin/question/update/:id" component={UpdateQuestion} />
             <Route path="/admin/settings" component={AdminSettings} />
             <Route path="/admin/glossary" component={AdminFlowers} exact/>
+            <Route path="/admin/reviews" component={Reviews} exact/>
+            <Route path="/admin/review/update/:id" component={UpdateReview} />
             <Route path="/admin/glossary/add" component={InsertFlower} />
             <Route path="/admin/glossary/update/:id" component={UpdateFlower} />
             <Route component={NotFoundPage} />

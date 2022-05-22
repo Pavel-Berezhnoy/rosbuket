@@ -41,12 +41,12 @@ const CartItem = ({ item }) => {
             </td>
             <td className="hidden text-right md:table-cell">
                 <span className="text-sm lg:text-base font-medium">
-                    {item.price}₽
+                    {item.price - (item.discount || 0)}₽
                 </span>
             </td>
             <td className="text-right">
                 <span className="text-sm lg:text-base font-medium">
-                    {item.price * item.quantity}₽
+                    {(item.price - (item.discount || 0))  * item.quantity}₽
                 </span>
             </td>
         </tr>
