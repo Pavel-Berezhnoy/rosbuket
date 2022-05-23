@@ -27,6 +27,6 @@ class Review extends Model
 
     public function answers()
     {
-        return $this->hasMany(Answer::class)->where('validate', 1);
+        return $this->hasMany(Answer::class);
     }
 }

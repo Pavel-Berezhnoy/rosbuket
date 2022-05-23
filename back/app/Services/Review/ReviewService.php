@@ -30,7 +30,9 @@ class ReviewService
   {
     $reviews = Review::where(['bouquet_id' => $bouquet_id, 'validate' => 1])
       ->with([
-        'answers',
+        'answers' => function ($q) {
+          $q->where('validate', 1);
+        },
         'answers.answer'
       ])
       ->get();

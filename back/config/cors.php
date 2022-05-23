@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['http://rosbuket', 'http://localhost:3000'],
+    'allowed_origins' => ['http://rosbuket', 'http://localhost:3000', 'https://rosbuket.site', 'https://www.rosbuket.site'],
 
     'allowed_origins_patterns' => [],
 

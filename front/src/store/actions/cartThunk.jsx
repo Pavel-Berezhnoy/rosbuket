@@ -6,7 +6,7 @@ const cartThunk = (cart) => {
         cart = await cart();
         try {
             dispatch(cartLoading());
-            const response = await api.get(`http://rosbackend/api/cart?items[]=${cart.join("&items[]=")}`);
+            const response = await api.get(`/api/cart?items[]=${cart.join("&items[]=")}`);
             if (response.status === 200) {
                 dispatch(cartSuccess(response.data));
             } else {
