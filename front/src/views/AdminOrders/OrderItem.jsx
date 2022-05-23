@@ -27,12 +27,12 @@ const OrderItem = ({ item }) => {
             </td>
             <td className="hidden text-right md:table-cell">
                 <span className="text-sm lg:text-base font-medium">
-                    {item.bouquet.price}₽
+                    {item.bouquet.price - (item.bouquet.discount || 0)}₽
                 </span>
             </td>
             <td className="text-right">
                 <span className="text-sm lg:text-base font-medium">
-                    {item.bouquet.price * item.qty}₽
+                    {(item.bouquet.price - (item.bouquet.discount || 0)) * item.qty}₽
                 </span>
             </td>
         </tr>
