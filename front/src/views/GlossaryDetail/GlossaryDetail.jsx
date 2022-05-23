@@ -20,9 +20,11 @@ export default function GlossaryDetail() {
         : (flowerData.errors
           ? <div>{flowerData.errors.message}</div>
           : <div>
-            <img className='w-full' src={`${config.domain}${flower?.image}`} alt="flower-image" />
-            <h1 className='text-2xl font-bold my-8'>{flower?.name}</h1>
-            <p className='text-lg text-justify' dangerouslySetInnerHTML={{__html: flower?.description}}></p>
+            <img className='max-w-[500px] pr-8 float-left text-left' src={`${config.domain}${flower?.image}`} alt="flower-image" />
+            <div className=''>
+              <h1 className='text-2xl font-bold my-8'>{flower?.name}</h1>
+              <p className='text-lg text-justify' dangerouslySetInnerHTML={{ __html: flower?.description }}></p>
+            </div>
           </div>)}
     </>
   )

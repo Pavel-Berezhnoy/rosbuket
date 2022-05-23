@@ -16,9 +16,7 @@ let styles = [
     'py-5',
     'pl-6',
     'pr-8',
-    '-z-10',
     'sm:pr-6',
-    'opacity-0',
     'transition-all'
 ];
 

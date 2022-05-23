@@ -22,7 +22,7 @@ class BouquetsController extends Controller
         $bouquet = Bouquet::where('id', $id)->select(['id', 'name', 'image', 'discount', 'description', 'price'])->with(['categories' => function ($q) {
             $q->select(['category.name', 'category.id']);
         }, 'flowers' => function ($q) {
-            $q->select(['flower.name']);
+            $q->select(['flower.name', 'flower.id']);
         }])->first();
         if ($bouquet)
             return $bouquet->toJson();

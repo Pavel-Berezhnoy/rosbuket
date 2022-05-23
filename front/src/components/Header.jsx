@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import config from '../config/main';
 import cartIcon from './../assets/icons/shop-icon.png';
 
@@ -12,13 +12,13 @@ function Header() {
     const logo = useMemo(() => settings.filter(setting => setting.type === 'logo') || [], [settings]);
 
     const nav = [
-        <Link to='/catalog'>Каталог</Link>,
-        <Link to='/glossary'>Глоссарий</Link>,
-        <Link to='/delivery'>Доставка</Link>,
-        <Link to='/ask'>Задать вопрос</Link>,
-        <Link to='/contact'>Контакты</Link>,
-        <Link to='/about'>О нас</Link>,
-        <Link to='/cart'>Корзина</Link>,
+        <NavLink activeClassName='underline' to='/catalog'>Каталог</NavLink>,
+        <NavLink activeClassName='underline' to='/glossary'>Глоссарий</NavLink>,
+        <NavLink activeClassName='underline' to='/delivery'>Доставка</NavLink>,
+        <NavLink activeClassName='underline' to='/ask'>Задать вопрос</NavLink>,
+        <NavLink activeClassName='underline' to='/contact'>Контакты</NavLink>,
+        <NavLink activeClassName='underline' to='/about'>О нас</NavLink>,
+        <NavLink activeClassName='underline' to='/cart'>Корзина</NavLink>,
     ]
     return (
         <header className='header'>
