@@ -53,7 +53,7 @@ class CartItemDto
             $bouquet->image,
             $bouquet->price,
             $qty,
-            $bouquet->discount
+            $bouquet->discount ? $bouquet->discount : 0
         );
     }
 }
