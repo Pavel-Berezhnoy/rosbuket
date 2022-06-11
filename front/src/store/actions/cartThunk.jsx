@@ -1,5 +1,6 @@
 import { api } from "../../api/api.get";
-import { cartSuccess, cartLoading, cartFailure } from "../reducers/CartReducer";
+import { cartSuccess, cartLoading, cartFailure, cartClear } from "../reducers/CartReducer";
+import { messageSetErrorMessages, messageSetSuccessMessages } from "../reducers/MessageReducer";
 
 const cartThunk = (cart) => {
     return async (dispatch) => {
@@ -18,5 +19,22 @@ const cartThunk = (cart) => {
         }
     }
 }
+
+const cartSubmitThunk = (request, successMessage) => {
+    return async (dispatch) => {
+        try {
+            const response = await request();
+            if (response.status === 200) {
+                dispatch(messageSetSuccessMessages(successMessage));
+                dispatch(cartClear());
+            }
+        } catch (err) {
+            const messages = Object.entries(err.response.data.errors).map(error => error[1]);
+            dispatch(messageSetErrorMessages(messages));
+        }
+    }
+}
+
+export { cartSubmitThunk }
 
 export default cartThunk;

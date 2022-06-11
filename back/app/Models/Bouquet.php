@@ -40,4 +40,9 @@ class Bouquet extends Model
     {
         return $this->hasMany(FlowerBouquet::class);
     }
+
+    public function orders()
+    {
+        return $this->hasMany(OrderItem::class);
+    }
 }

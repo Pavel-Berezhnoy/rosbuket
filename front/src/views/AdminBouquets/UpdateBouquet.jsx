@@ -1,12 +1,13 @@
-import React, { useContext, useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import { api } from '../../api/api.get';
 import BouquetForm from '../../components/admin/form/BouquetForm';
 import InsertUpdateForm from '../../components/admin/form/InsertUpdateForm';
-import { OpenModal } from '../../components/messages/SuccessMessage';
+import { submitThunk } from '../../store/actions/submitThunk';
 
 export default function UpdateBouquet() {
-  const message = useContext(OpenModal);
+  const dispatch = useDispatch();
   const [bouquet, setBouquet] = useState();
   const multiSelects = {
     categories: [],
@@ -30,11 +31,7 @@ export default function UpdateBouquet() {
     });
     form.set('id', id);
 
-    await api.post("/api/admin/bouquets?_method=PUT", form);
-    message.setOpenedState({
-      open: true,
-      text: 'Товар успешно обновлен!',
-    });
+    dispatch(submitThunk(async () => await api.post("/api/admin/bouquets?_method=PUT", form), ['Товар успешно обновлен!']));
   }
 
   return (

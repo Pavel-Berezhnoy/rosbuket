@@ -3,9 +3,8 @@ import { useState } from 'react';
 import { useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { api } from '../../api/api.get';
-import SuccessMessage from '../../components/messages/SuccessMessage';
-import useMessage from '../../hooks/useMessage';
 import settingsThunk from '../../store/actions/settingsThunk';
+import { submitThunk } from '../../store/actions/submitThunk';
 import SettingItem from './SettingItem';
 
 const Emails = () => {
@@ -13,7 +12,6 @@ const Emails = () => {
     const emails = useMemo(() => settings.filter(setting => setting.type === 'email') || [], [settings]);
     const [insert, setInsert] = useState(false);
     const dispatch = useDispatch();
-    const message = useMessage();
     const [email, setEmail] = useState({
         type: 'email',
         value: "",
@@ -22,17 +20,18 @@ const Emails = () => {
 
     const addHandle = async () => {
         if (email.value.length > 8) {
-            dispatch(settingsThunk(async () => {
-                setInsert(false);
-                setEmail({...email, value: ""})
-                message.setOpened(true);
-                return await api.postJson('/api/admin/settings', email);
-            }));
+            dispatch(settingsThunk(
+                async () => {
+                    setInsert(false);
+                    setEmail({ ...email, value: "" })
+                    return await api.postJson('/api/admin/settings', email)
+                },
+                ["Настройка добавлена!"]
+            ));
         }
     }
     return (
         <>
-            <SuccessMessage text={"Настройка добавлена!"} opened={message.opened}></SuccessMessage>
             <div className="w-full mt-6 px-6 sm:w-1/2 xl:w-1/3 sm:mt-0">
                 <div className="px-5 py-6 shadow-sm rounded-md bg-white">
                     <div className="mx-5">

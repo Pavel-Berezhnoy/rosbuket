@@ -9,8 +9,8 @@ import { token } from '../services/tokenService';
 import { authenticateThunk } from '../store/actions/loginThunk';
 import PublicLayout from './layouts/PublicLayout';
 import AdminLayout from './layouts/AdminLayout';
-import { Route, Switch } from 'react-router-dom/cjs/react-router-dom.min';
-import SuccessMessage from './messages/SuccessMessage';
+import { Route, Switch } from 'react-router-dom';
+import Message from './messages/Message';
 
 export const getCart = async () => {
   const items = await JSON.parse(Cookies.get('cart'));
@@ -38,12 +38,12 @@ function App() {
     }));
   }, []);
   return (
-    <SuccessMessage>
+    <Message>
       <Switch>
         <Route path={'/admin'} component={AdminLayout} />
         <Route path={'/'} component={PublicLayout} />
       </Switch>
-    </SuccessMessage>
+    </Message>
   );
 }
 

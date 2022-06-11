@@ -6,12 +6,14 @@ use App\Models\Question;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Carbon\Carbon;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class QuestionController extends Controller
 {
 
-    public function index() {
-        $questions = Question::orderby('id','desc')->get();
+    public function index()
+    {
+        $questions = Question::orderby('id', 'desc')->get();
         $filteredQuestions = $questions->map(function ($question) {
             $question->status = Question::$statusFromCode[$question->status];
             return $question;
@@ -21,19 +23,20 @@ class QuestionController extends Controller
 
     public function view(Request $request)
     {
-        return Question::where('id',$request['id'])->first()->toJson();
+        return Question::where('id', $request['id'])->first()->toJson();
     }
 
     public function checked(Request $request)
     {
-        $question = Question::where('id',$request['id'])->first();
+        $question = Question::where('id', $request['id'])->first();
         $question->status = 1;
         $question->save();
     }
 
-    public function create(Request $request) {
-        $fields = $request->all();
-        $question = new Question($fields);
+    public function create(Request $request, Question $question)
+    {
+        $question->fill($request->all());
+        $question->status = 0;
         $question->save();
     }
 
@@ -42,7 +45,8 @@ class QuestionController extends Controller
         $question = Question::where('id', $request['id'])->first();
         $question->status = 2;
         $question->save();
-        Mail::send(
+        
+        $sended_mail = Mail::send(
             'mail.question',
             [
                 'question' => $question,
@@ -55,5 +59,7 @@ class QuestionController extends Controller
                 $message->to($request['email'], 'receiver')->subject('Письмо');
             }
         );
+
+        if ($sended_mail) throw new HttpException('404', 'Такой почты не существует');
     }
 }

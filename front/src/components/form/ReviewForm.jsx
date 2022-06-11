@@ -1,14 +1,14 @@
-import React, { useContext, useState } from 'react'
-import { useSelector } from 'react-redux';
+import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import { api } from '../../api/api.get';
+import { submitThunk } from '../../store/actions/submitThunk';
 import SelectRating from '../../views/BouquetDetail/reviews/SelectRating';
-import { openMessage, OpenModal } from '../messages/SuccessMessage';
 
 export default function ReviewForm() {
   const [selectedRating, setSelectedRating] = useState(0);
   const [selectedRatingError, setSelectedRatingError] = useState('');
   const bouquet = useSelector(state => state.bouquetReducer.bouquet);
-  const message = useContext(OpenModal);
+  const dispatch = useDispatch();
 
   const submitReviewHandle = async e => {
     e.preventDefault();
@@ -19,9 +19,7 @@ export default function ReviewForm() {
 
     reviewForm.set('estimate', selectedRating);
     setSelectedRatingError('');
-    const response = await api.post(`api/review`, reviewForm);
-    if (response.status === 200)
-      message.setOpenedState(openMessage('Отзыв отправлен! Он появится, как только пройдет модерацию.'));
+    dispatch(submitThunk(async () => await api.post(`api/review`, reviewForm), ['Отзыв отправлен! Он появится, как только пройдет модерацию.']));
   }
 
   return (

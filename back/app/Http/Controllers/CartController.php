@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\OrderRequest;
 use Illuminate\Http\Request;
 use App\Services\CartService\CartService;
 
@@ -16,12 +17,12 @@ class CartController extends Controller
         return $cart;
     }
 
-    public function create(Request $request, CartService $cartService)
+    public function create(OrderRequest $request, CartService $cartService)
     {
-        $fields =  $request->all();
+        $fields = $request->validated();
 
         $cartService->createOrder($fields);
         
-        return "Запись успешно добавлена";
+        return $fields;
     }
 }

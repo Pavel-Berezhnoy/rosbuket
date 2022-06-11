@@ -45,8 +45,10 @@ class AdminOrderController extends Controller
     public function checked(Request $request)
     {
         $order = Order::where('id', $request['id'])->first();
-        $order->status = 1;
-        $order->save();
+        if ($order->status !== 2) {
+            $order->status = 1;
+            $order->save();
+        }
     }
 
     public function view(Request $request)

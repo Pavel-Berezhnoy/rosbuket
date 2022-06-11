@@ -3,7 +3,7 @@ import { BOUQUET_LOADING, BOUQUET_SUCCESS, BOUQUET_ERROR } from "../reducers/Bou
 import { api } from "../../api/api.get";
 
 const bouquetThunk = (pageAddress) => {
-  return async (dispatch) => {
+  return async (dispatch) => {console.log(pageAddress);
     try {
       dispatch(bouquetLoading());
       const response = await api.get(pageAddress);

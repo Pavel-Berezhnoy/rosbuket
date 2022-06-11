@@ -1,7 +1,7 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { api } from "../../api/api.get";
-import { OpenModal } from "../../components/messages/SuccessMessage";
+import { cartSubmitThunk } from "../../store/actions/cartThunk";
 import { cartClear } from "../../store/reducers/CartReducer";
 
 const OrderForm = () => {
@@ -12,22 +12,14 @@ const OrderForm = () => {
         address: "",
         message: ""
     });
-
-    const message = useContext(OpenModal);
     const dispatch = useDispatch();
     const cart = useSelector(state => state.cartReducer.cart) || [];
+    const messageType = useSelector(state => state.messageReducer.type);
 
     const submitHandle = async (e) => {
         e.preventDefault();
         const submitData = { ...userData, order_items: cart };
-        const response = await api.postJson("/api/cart", submitData);
-        if (response.status === 200) {
-            message.setOpenedState({
-                open: true,
-                text: 'Заказ успешно создан!',
-            });
-            dispatch(cartClear());
-        }
+        dispatch(cartSubmitThunk(async () => await api.postJson("/api/cart", submitData), ['Заказ успешно создан!']));
     }
     return (
         <>

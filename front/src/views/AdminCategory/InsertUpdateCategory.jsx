@@ -5,8 +5,8 @@ import { api } from "../../api/api.get";
 import useSingleFilter from "../../hooks/useSingleFilter";
 import SingleFilter from "../../components/filters/SingleFilter";
 import config from "../../config/main";
-import useMessage from "../../hooks/useMessage";
-import SuccessMessage from "../../components/messages/SuccessMessage";
+import { useDispatch } from "react-redux";
+import { submitThunk } from "../../store/actions/submitThunk";
 
 const InsertUpdateCategory = () => {
     const { id } = useParams();
@@ -15,7 +15,7 @@ const InsertUpdateCategory = () => {
     const [image, setImage] = useState();
     const [changeFile, setChangeFile] = useState();
     const singleFilter = useSingleFilter();
-    const message = useMessage();
+    const dispatch = useDispatch();
     useEffect(() => {
         if (id) {
             (async () => {
@@ -49,18 +49,19 @@ const InsertUpdateCategory = () => {
         form.append('parent', singleFilter.activeItem.value);
         if (id) {
             form.append('id', id);
-            await api.post("/api/admin/categories?_method=PUT", form);
-            message.setOpened(true);
-            message.setText("Категория успешно обновлена!");
+            dispatch(submitThunk(
+                async () => await api.post("/api/admin/categories?_method=PUT", form),
+                ["Категория успешно обновлена!"]
+            ));
         } else {
-            await api.post("/api/admin/categories", form);
-            message.setOpened(true);
-            message.setText("Категория успешно добавлена!");
+            dispatch(submitThunk(
+                async () => await api.post("/api/admin/categories", form),
+                ["Категория успешно добавлена!"]
+            ));
         }
     }
     return (
         <>
-            <SuccessMessage opened={message.opened} text={message.text}></SuccessMessage>
             <InsertUpdateForm titleAdd="Добавить категорию" titleUpdate="Обновить категорию" submitHandle={submitHandle}>
                 <div className="md:flex items-center mt-8">
                     <div className="w-full flex flex-col">

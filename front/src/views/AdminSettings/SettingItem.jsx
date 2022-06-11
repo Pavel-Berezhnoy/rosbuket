@@ -2,16 +2,13 @@ import React from 'react';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { api } from '../../api/api.get';
-import SuccessMessage from '../../components/messages/SuccessMessage';
 import DeletePopup from '../../components/popups/DeletePopup';
-import useMessage from '../../hooks/useMessage';
 import useQuestionPopup from '../../hooks/useQuestionPopup';
 import settingsThunk from '../../store/actions/settingsThunk';
 
 const SettingItem = ({ item }) => {
     const questionPopup = useQuestionPopup();
     const [update, setUpdate] = useState(false);
-    const message = useMessage();
     const [updateItem, setUpdateItem] = useState({
         id: item?.id,
         type: item?.type,
@@ -21,24 +18,22 @@ const SettingItem = ({ item }) => {
     const dispatch = useDispatch();
 
     const updateHandle = async () => {
-        if (updateItem.value.length >= 5) {
-            dispatch(settingsThunk(async () => {
+        dispatch(
+            settingsThunk(async () => {
                 setUpdate(false);
-                message.setOpened(true);
-                return await api.putJson('/api/admin/settings', updateItem);
-            }));
-        }
+                return await api.putJson('/api/admin/settings', updateItem)
+            }, ["Настройка успешно обновлена!"])
+        );
     }
 
     const deleteHandle = async () => {
         dispatch(settingsThunk(async () => {
             return await api.delete('/api/admin/settings', { id: item.id });
-        }));
+        }, ['Настройка удалена']));
     }
 
     return (
         <>
-            <SuccessMessage opened={message.opened} text="Настройка успешно обновлена"></SuccessMessage>
             <div className='flex items-center justify-between py-2'>
                 {update ?
                     <div>

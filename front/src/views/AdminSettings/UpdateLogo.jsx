@@ -24,12 +24,15 @@ const UpdateLogo = () => {
     const updateHandle = (e) => {
         e.preventDefault();
         const formData = new FormData(document.forms.logoForm);
-        formData.append('id',logo[0]?.id);
-        formData.append('type',logo[0]?.type);
-        dispatch(settingsThunk(async () => {
-            setImage("");
-            return await api.post('/api/admin/settings?_method=PUT',formData);
-        }));
+        formData.append('id', logo[0]?.id);
+        formData.append('type', logo[0]?.type);
+        dispatch(settingsThunk(
+            async () => {
+                setImage("");
+                return await api.post('/api/admin/settings?_method=PUT', formData);
+            },
+            ['Логотип обновлен'])
+        );
     }
     return (
         <>

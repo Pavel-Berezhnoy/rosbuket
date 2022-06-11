@@ -1,14 +1,15 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min'
 import { api } from '../../api/api.get';
 import GlossaryForm from '../../components/admin/form/GlossaryForm'
 import InsertUpdateForm from '../../components/admin/form/InsertUpdateForm'
-import { openMessage, OpenModal } from '../../components/messages/SuccessMessage';
+import { submitThunk } from '../../store/actions/submitThunk';
 
 export default function UpdateFlower() {
   const { id } = useParams();
   const [flower, setFlower] = useState();
-  const { setOpenedState } = useContext(OpenModal);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     (async () => {
@@ -21,9 +22,8 @@ export default function UpdateFlower() {
     e.preventDefault();
     const form = new FormData(document.forms.addUpdate);
     form.append('id', id);
-    form.set('active', form.get('active') ? '1' : '0')
-    await api.post("/api/admin/glossary?_method=PUT", form);
-    setOpenedState(openMessage('Глоссарий обновлен!'));
+    form.set('active', form.get('active') ? '1' : '0');
+    dispatch(submitThunk(async () => await api.post("/api/admin/glossary?_method=PUT", form), ['Глоссарий обновлен!']));
   }
 
   return (

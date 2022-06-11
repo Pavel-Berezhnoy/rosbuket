@@ -1,6 +1,7 @@
+import { messageSetSuccessMessages } from "../reducers/MessageReducer";
 import { settingsLoading, settingsSuccess, settingsError } from "../reducers/SettingsReducer";
 
-const settingsThunk = (request) => {
+const settingsThunk = (request, successMessage) => {
     return async (dispatch) => {
         try {
             dispatch(settingsLoading());
@@ -11,6 +12,8 @@ const settingsThunk = (request) => {
                 const result = response.data;
                 dispatch(settingsError(result.message));
             }
+            if (response.config.method !== 'get')
+                dispatch(messageSetSuccessMessages(successMessage || []))
         } catch (err) {
             dispatch(settingsError(err));
         }

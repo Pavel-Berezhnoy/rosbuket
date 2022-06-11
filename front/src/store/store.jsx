@@ -10,9 +10,10 @@ import settingsReducer from './reducers/SettingsReducer';
 import glossaryReducer from './reducers/GlossaryReducer';
 import reviewReducer from './reducers/ReviewReducer';
 import adminReviewsReducer from './reducers/AdminReviewsReducer';
+import messageReducer from './reducers/MessageReducer';
 
 const reducer = combineReducers({
-    mainReducer, loadAuthReducer, categoryReducer, bouquetReducer, cartReducer, settingsReducer, glossaryReducer, reviewReducer, adminReviewsReducer
+    mainReducer, loadAuthReducer, categoryReducer, bouquetReducer, cartReducer, settingsReducer, glossaryReducer, reviewReducer, adminReviewsReducer, messageReducer
 });
 
 const store = createStore(reducer, composeWithDevTools(

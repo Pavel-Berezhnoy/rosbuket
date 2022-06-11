@@ -1,19 +1,18 @@
-import React, { useContext } from 'react'
+import React from 'react'
+import { useDispatch } from 'react-redux';
 import { api } from '../../api/api.get';
-import { openMessage, OpenModal } from '../messages/SuccessMessage';
+import { submitThunk } from '../../store/actions/submitThunk';
 
 export default function AnswerForm({ showAnswerForm, reviewId, answerId }) {
 
-  const message = useContext(OpenModal);
+  const dispatch = useDispatch();
 
   const submitAnswerHandle = async e => {
     e.preventDefault();
     const form = new FormData(document.forms[`form${answerId ? `answer${answerId}` : `review${reviewId}`}`]);
     if (answerId) form.set('answer_id', answerId);
     form.set('review_id', reviewId);
-    const response = await api.post(`api/answer`, form);
-    if (response.status === 200)
-      message.setOpenedState(openMessage('Ответ отправлен! Он появится, как только пройдет модерацию.'));
+    dispatch(submitThunk(async () => await api.post(`api/answer`, form), ['Ответ отправлен! Он появится, как только пройдет модерацию.']));
   }
 
   return (

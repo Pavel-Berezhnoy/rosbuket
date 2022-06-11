@@ -1,14 +1,15 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux';
 import { Link, useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import { api } from '../../api/api.get';
 import AnswerItem from '../../components/admin/components/answerItem/AnswerItem';
 import InsertUpdateForm from '../../components/admin/form/InsertUpdateForm';
-import { openMessage, OpenModal } from '../../components/messages/SuccessMessage';
+import { submitThunk } from '../../store/actions/submitThunk';
 
 export default function UpdateReview() {
   const { id } = useParams();
   const [review, setReview] = useState({});
-  const message = useContext(OpenModal);
+  const dispatch = useDispatch();
   useEffect(() => {
     (async () => {
       const response = await api.get(`/api/admin/review/${id}`);
@@ -18,8 +19,7 @@ export default function UpdateReview() {
 
   const submitHandle = async (e) => {
     e.preventDefault();
-    const response = await api.postJson("/api/admin/review?_method=PUT", review);
-    if (response.status === 200) message.setOpenedState(openMessage('Отзыв сохранен, теперь он появится на странице'));
+    dispatch(submitThunk(async () => await api.postJson("/api/admin/review?_method=PUT", review), ['Отзыв сохранен, теперь он появится на странице']));
   }
   return (
     <>

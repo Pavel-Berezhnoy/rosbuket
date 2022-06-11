@@ -1,7 +1,7 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { api } from "../../api/api.get";
-import SuccessMessage, { openMessage, OpenModal } from "../../components/messages/SuccessMessage";
-import useMessage from "../../hooks/useMessage";
+import { submitThunk } from "../../store/actions/submitThunk";
 
 function Ask() {
     const [userdata, setUserdata] = useState({
@@ -10,12 +10,11 @@ function Ask() {
         message: "",
         phone: "",
     });
-    const message = useContext(OpenModal);
+    const dispatch = useDispatch();
 
     const submitHandle = async (e) => {
         e.preventDefault();
-        const response = await api.postJson('/api/question', userdata);
-        if (response.status === 200) message.setOpenedState(openMessage('Письмо успешно отправлено!'));
+        dispatch(submitThunk(async () => await api.postJson('/api/question', userdata), ['Письмо успешно отправлено!']));
     }
 
     return (

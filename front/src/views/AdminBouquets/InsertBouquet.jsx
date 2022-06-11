@@ -1,15 +1,17 @@
-import React, { useContext } from 'react'
+import React from 'react'
+import { useDispatch } from 'react-redux';
 import { api } from '../../api/api.get';
 import BouquetForm from '../../components/admin/form/BouquetForm';
 import InsertUpdateForm from '../../components/admin/form/InsertUpdateForm';
-import { OpenModal } from '../../components/messages/SuccessMessage';
+import { submitThunk } from '../../store/actions/submitThunk';
 
 export default function InsertBouquet() {
-  const message = useContext(OpenModal);
   const multiSelects = {
     categories: [],
     flowers: [],
   }
+
+  const dispatch = useDispatch();
 
   const insertBouquetHandle = async (e) => {
     e.preventDefault();
@@ -18,12 +20,7 @@ export default function InsertBouquet() {
       const [name, values] = element;
       form.set(name, values);
     });
-
-    await api.post("/api/admin/bouquets", form);
-    message.setOpenedState({
-      open: true,
-      text: 'Товар успешно добавлен!',
-    });
+    dispatch(submitThunk(async () => await api.post("/api/admin/bouquets", form), ['Товар успешно добавлен!']));
   }
 
   return (
