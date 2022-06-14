@@ -17,7 +17,7 @@ export default function UpdateBouquet() {
 
   useEffect(() => {
     (async () => {
-      const response = await api.get(`/api/bouquet/${id}`);
+      const response = await api.get(`/api/admin/bouquet/${id}`);
       setBouquet(response.data);
     })();
   }, [id]);

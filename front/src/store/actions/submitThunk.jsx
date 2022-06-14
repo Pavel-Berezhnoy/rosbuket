@@ -4,7 +4,7 @@ const submitThunk = (request, successMessage) => {
   return async (dispatch) => {
     try {
       const response = await request();
-      if (response.status === 200) {
+      if (response.status === 200 || response.status === 201) {
         dispatch(messageSetSuccessMessages(successMessage));
       }
     } catch (err) {
