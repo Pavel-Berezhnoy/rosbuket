@@ -60,7 +60,8 @@ Route::group([
 ], function ($router) {
     Route::get('/main', [MainController::class, 'adminMain']);
 
-    Route::get('/bouquets', [AdminBouquetsController::class, 'view']);
+    Route::get('/bouquets', [AdminBouquetsController::class, 'index']);
+    Route::get('/bouquet/{id}', [AdminBouquetsController::class, 'view']);
     Route::post('/bouquets', [AdminBouquetsController::class, 'create']);
     Route::put('/bouquets', [AdminBouquetsController::class, 'update']);
     Route::delete('/bouquets', [AdminBouquetsController::class, 'delete']);

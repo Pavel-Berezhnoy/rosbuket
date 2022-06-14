@@ -8,14 +8,29 @@ use Illuminate\Http\Request;
 
 class AdminBouquetsController extends Controller
 {
-    public function view()
+    public function index()
     {
         return Bouquet::all()->toJson();
     }
 
+    public function view($id)
+    {
+        return Bouquet::where('id', $id)
+            ->with([
+                'categories' => function ($q) {
+                    $q->select(['category.name', 'category.id']);
+                },
+                'flowers' => function ($q) {
+                    $q->select(['flower.name', 'flower.id']);
+                },
+            ])
+            ->first()
+            ->toJson();
+    }
+
     public function delete(Request $request)
     {
-        $bouquet = Bouquet::where('id',$request['id'])->first();
+        $bouquet = Bouquet::where('id', $request['id'])->first();
         $bouquet->categoriesBouquets()->delete();
         $bouquet->flowersBouquets()->delete();
         $bouquet->delete();
